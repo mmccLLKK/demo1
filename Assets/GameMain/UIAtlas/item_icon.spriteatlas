@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: item_icon
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: d343a2ec90dd86e42a3e3d94f1baf066, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 69e24e817610a554295c65b397c043ee: 21300000
+    - 0e9e7d647c40c474bb34a812f3289aa3: 21300000
+    - 7e3cb5354114d4f9aabdf3b247492ff5: 21300000
+    - 6fbc08d5ccc35fb48afd847dc9e7cab1: 21300000
+    - c62746d63f9f13d45bff4c6c666e787a: 21300000
+    - f27b9c87ac25246929409f38ce8a0e68: 21300000
+    - f6e69078fe5414c6bbdc0542a9040aee: 21300000
+    - 9ca265d94526b264d8d4f30b068329e3: 21300000
+    - f67d9eaae68e2c042aa12e552777f838: 21300000
+    - 792bcacba2a460b4fa47db353c525661: 21300000
+    - 2812782d8344e4c2c824e0f8c0470796: 21300000
+    - fa01f05dd511047aeacd00b718793948: 21300000
+    - 7aeff36d2ed5f094d8e1739c2c804875: 21300000
+    - 5934b58ebb976f2468c239bfe04fb516: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 69e24e817610a554295c65b397c043ee, type: 3}
+  - {fileID: 21300000, guid: 0e9e7d647c40c474bb34a812f3289aa3, type: 3}
+  - {fileID: 21300000, guid: 7e3cb5354114d4f9aabdf3b247492ff5, type: 3}
+  - {fileID: 21300000, guid: 6fbc08d5ccc35fb48afd847dc9e7cab1, type: 3}
+  - {fileID: 21300000, guid: c62746d63f9f13d45bff4c6c666e787a, type: 3}
+  - {fileID: 21300000, guid: f27b9c87ac25246929409f38ce8a0e68, type: 3}
+  - {fileID: 21300000, guid: f6e69078fe5414c6bbdc0542a9040aee, type: 3}
+  - {fileID: 21300000, guid: 9ca265d94526b264d8d4f30b068329e3, type: 3}
+  - {fileID: 21300000, guid: f67d9eaae68e2c042aa12e552777f838, type: 3}
+  - {fileID: 21300000, guid: 792bcacba2a460b4fa47db353c525661, type: 3}
+  - {fileID: 21300000, guid: 2812782d8344e4c2c824e0f8c0470796, type: 3}
+  - {fileID: 21300000, guid: fa01f05dd511047aeacd00b718793948, type: 3}
+  - {fileID: 21300000, guid: 7aeff36d2ed5f094d8e1739c2c804875, type: 3}
+  - {fileID: 21300000, guid: 5934b58ebb976f2468c239bfe04fb516, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - FaShiJieZi_04
+  - 066_Sindoran_Shielding_Amulet
+  - 073_Zettas_Mana-Stick
+  - FaShi_XiongJia_5
+  - FaShiXiangLian_03
+  - 3035_Last_Whisper
+  - 3026_Guardian_Angel
+  - FaShiYaoDai_04
+  - DaJian_08
+  - FaShiXie_04
+  - 21
+  - 3065_Spirit_Visage
+  - GongShou_ChiBang_3
+  - FaShi_TouKui_8
+  m_RenderDataMap: {}
+  m_Tag: item_icon
+  m_IsVariant: 0
