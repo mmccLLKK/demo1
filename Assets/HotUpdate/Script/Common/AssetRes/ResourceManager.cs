@@ -1,3 +1,7 @@
-﻿public class ResourceManager
+﻿
+/// <summary>
+/// 
+/// </summary>
+public class ResourceManager : IResourceManager
 {
 }
