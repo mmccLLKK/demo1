@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using HybridCLR.Editor.Commands;
@@ -9,8 +10,8 @@ namespace UnityEditor.AddressableAssets.Build
 {
     public class BuildTools : Editor
     {
-        [MenuItem("Tools/打包流程/全量打包")]
-        public static void Build()
+        [MenuItem("Tools/打包流程/资源初始化")]
+        public static void InitBuildAssets()
         {
             //编译DLL和环境
             Debug.Log("开始 GenerateAll...");
@@ -26,7 +27,35 @@ namespace UnityEditor.AddressableAssets.Build
             AddressableAssetSettings.BuildPlayerContent();
         }
 
-        [MenuItem("Tools/打包流程/热更新")]
+        [MenuItem("Tools/打包流程/打包本平台")]
+        public static void BuildGame()
+        {
+            var dict = new Dictionary<BuildTarget, string>()
+            {
+                {BuildTarget.StandaloneWindows64, ".exe"},
+                {BuildTarget.Android, ".apk"},
+            };
+            string prefix = dict.GetValueOrDefault(EditorUserBuildSettings.activeBuildTarget, "");
+            string outputPath = Application.dataPath.Replace("/Assets", $"/BuildOutput/{EditorUserBuildSettings.activeBuildTarget}/{PlayerSettings.productName}{prefix}");
+            Debug.Log(outputPath);
+            //如果没有创建目录
+            if (!Directory.Exists(outputPath))
+            {
+                Directory.CreateDirectory(outputPath);
+            }
+
+            //会删除顶级目录
+            Directory.Delete(outputPath);
+
+            BuildPlayerOptions buildOptions = new BuildPlayerOptions();
+            buildOptions.scenes = new[] {EditorBuildSettings.scenes[0].path};
+            buildOptions.target = EditorUserBuildSettings.activeBuildTarget;
+            buildOptions.locationPathName = outputPath;
+            BuildPipeline.BuildPlayer(buildOptions);
+            // EditorApplication.Exit(0);
+        }
+
+        [MenuItem("Tools/打包流程/生成热更新")]
         public static void HotUpdate()
         {
             Debug.Log("热更新流程");
@@ -34,6 +63,15 @@ namespace UnityEditor.AddressableAssets.Build
             CopyHotUpdateDll();
 
             CopyAOTDll();
+
+            AddressableAssetSettings.BuildPlayerContent();
+        }
+
+        [MenuItem("Tools/打包流程/一键重出本平台包")]
+        public static void OneKeyBuild()
+        {
+            InitBuildAssets();
+            BuildGame();
         }
 
         protected static void CopyHotUpdateDll()
@@ -75,6 +113,7 @@ namespace UnityEditor.AddressableAssets.Build
                 string dest = $"{destPath}/{file}.bytes";
                 CoverFile(source, dest);
             }
+
             // 写入配置
             var json = JsonConvert.SerializeObject(files);
             GameUtils.FileWrite($"{destPath}/info.txt", json);

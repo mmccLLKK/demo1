@@ -26,6 +26,6 @@ public class HotUpdateApp : MonoBehaviour
 
         var uiManager = instantiate.GetComponent<UIManager>();
         uiManager.Init();
-        uiManager.OpenUI("UI_START");
+        await uiManager.OpenUI("UI_START");
     }
 }
