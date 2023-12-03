@@ -88,7 +88,7 @@ public class Role : MonoBehaviour
         List<(RoleStateType, StateMachineBase)> states = new List<(RoleStateType, StateMachineBase)>();
         states.Add((RoleStateType.idle, new RoleIdleStateMachine()));
         states.Add((RoleStateType.move, new RoleMoveStateMachine()));
-        states.Add((RoleStateType.attack, new RoleAttackStateMachine()));
+        // states.Add((RoleStateType.attack, new RoleAttackStateMachine()));
 
         //初始化赋值Role
         foreach (var valueTuple in states)
@@ -102,8 +102,8 @@ public class Role : MonoBehaviour
         trans.Add((RoleStateType.idle, RoleStateType.attack));
         trans.Add((RoleStateType.move, RoleStateType.attack));
         trans.Add((RoleStateType.move, RoleStateType.idle));
-        trans.Add((RoleStateType.attack, RoleStateType.idle));
-        trans.Add((RoleStateType.attack, RoleStateType.move));
+        // trans.Add((RoleStateType.attack, RoleStateType.idle));
+        // trans.Add((RoleStateType.attack, RoleStateType.move));
 
         //设置状态机数据
         roleFsm.SetStatesInfo(states, trans);

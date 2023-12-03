@@ -30,27 +30,29 @@ namespace UnityEditor.AddressableAssets.Build
         [MenuItem("Tools/打包流程/打包本平台")]
         public static void BuildGame()
         {
+            //刷新资源系统
+            AssetDatabase.Refresh();
+
             var dict = new Dictionary<BuildTarget, string>()
             {
                 {BuildTarget.StandaloneWindows64, ".exe"},
                 {BuildTarget.Android, ".apk"},
             };
             string prefix = dict.GetValueOrDefault(EditorUserBuildSettings.activeBuildTarget, "");
-            string outputPath = Application.dataPath.Replace("/Assets", $"/BuildOutput/{EditorUserBuildSettings.activeBuildTarget}/{PlayerSettings.productName}{prefix}");
-            Debug.Log(outputPath);
+            // string outputPath = Application.dataPath.Replace("/Assets", $"/BuildOutput/{EditorUserBuildSettings.activeBuildTarget}/{PlayerSettings.productName}{prefix}");
+            string outputPath = Application.dataPath.Replace("/Assets", $"/BuildOutput/{EditorUserBuildSettings.activeBuildTarget}");
             //如果没有创建目录
             if (!Directory.Exists(outputPath))
             {
                 Directory.CreateDirectory(outputPath);
             }
-
             //会删除顶级目录
-            Directory.Delete(outputPath);
-
+            Directory.Delete(outputPath, true);
             BuildPlayerOptions buildOptions = new BuildPlayerOptions();
             buildOptions.scenes = new[] {EditorBuildSettings.scenes[0].path};
             buildOptions.target = EditorUserBuildSettings.activeBuildTarget;
-            buildOptions.locationPathName = outputPath;
+            // 输出到实际的文件名下
+            buildOptions.locationPathName = $"{outputPath}/{PlayerSettings.productName}{prefix}";
             BuildPipeline.BuildPlayer(buildOptions);
             // EditorApplication.Exit(0);
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -24,8 +25,16 @@ public class GameResourceManager
         await Addressables.InitializeAsync();
         if (autoUpdate)
         {
-            // 检查更新
-            await _update_address_ables();
+            try
+            {
+                // 检查更新
+                await _update_address_ables();
+            }
+            catch (Exception e)
+            {
+                //不再抛出.以免影响后续流程
+                Console.WriteLine(e);
+            }
         }
     }
 
@@ -54,6 +63,9 @@ public class GameResourceManager
             await _download(resourceLocator);
             Debug.Log($"下载资源:{resourceLocator}完成");
         }
+        
+        //需要重新执行初始化工作        
+        await Addressables.InitializeAsync();
     }
 
     private async UniTask _download(IResourceLocator resourceLocator)
@@ -61,11 +73,8 @@ public class GameResourceManager
         var size = await Addressables.GetDownloadSizeAsync(resourceLocator.Keys);
         Debug.Log($"更新:{resourceLocator}资源,总大小:{size}");
         if (size <= 0) return;
-        var downloadHandle =
-            Addressables.DownloadDependenciesAsync(resourceLocator.Keys, Addressables.MergeMode.Union);
-
+        var downloadHandle = Addressables.DownloadDependenciesAsync(resourceLocator.Keys, Addressables.MergeMode.Union);
         await downloadHandle;
-
         // Debug.Log("更新完毕!");
         Addressables.Release(downloadHandle);
     }

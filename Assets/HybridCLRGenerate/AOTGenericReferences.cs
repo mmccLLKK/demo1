@@ -24,11 +24,11 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// Cysharp.Threading.Tasks.AddressablesAsyncExtensions.AsyncOperationHandleConfiguredSource<object>
 	// Cysharp.Threading.Tasks.AutoResetUniTaskCompletionSource.<>c<object>
 	// Cysharp.Threading.Tasks.AutoResetUniTaskCompletionSource<object>
-	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<BattleManager.<InitUI>d__3>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<BattleManager.<InitUI>d__4>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<HotUpdateApp.<Init>d__1>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<UIManager.<OpenUI>d__7,object>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask.<>c<UIManager.<SetSprite>d__9>
-	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<BattleManager.<InitUI>d__3>
+	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<BattleManager.<InitUI>d__4>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<HotUpdateApp.<Init>d__1>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<UIManager.<OpenUI>d__7,object>
 	// Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask<UIManager.<SetSprite>d__9>
@@ -125,21 +125,27 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.Comparer<object>
 	// System.Collections.Generic.Dictionary.Enumerator<int,object>
 	// System.Collections.Generic.Dictionary.Enumerator<object,UIInfo>
+	// System.Collections.Generic.Dictionary.Enumerator<object,byte>
 	// System.Collections.Generic.Dictionary.Enumerator<object,object>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<int,object>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,UIInfo>
+	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,byte>
 	// System.Collections.Generic.Dictionary.KeyCollection.Enumerator<object,object>
 	// System.Collections.Generic.Dictionary.KeyCollection<int,object>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,UIInfo>
+	// System.Collections.Generic.Dictionary.KeyCollection<object,byte>
 	// System.Collections.Generic.Dictionary.KeyCollection<object,object>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<int,object>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,UIInfo>
+	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,byte>
 	// System.Collections.Generic.Dictionary.ValueCollection.Enumerator<object,object>
 	// System.Collections.Generic.Dictionary.ValueCollection<int,object>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,UIInfo>
+	// System.Collections.Generic.Dictionary.ValueCollection<object,byte>
 	// System.Collections.Generic.Dictionary.ValueCollection<object,object>
 	// System.Collections.Generic.Dictionary<int,object>
 	// System.Collections.Generic.Dictionary<object,UIInfo>
+	// System.Collections.Generic.Dictionary<object,byte>
 	// System.Collections.Generic.Dictionary<object,object>
 	// System.Collections.Generic.EqualityComparer<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>>
 	// System.Collections.Generic.EqualityComparer<System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,System.ValueTuple<byte,object>>>>>>>>
@@ -161,6 +167,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.HashSetEqualityComparer<object>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,UIInfo>>
+	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,byte>>
 	// System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.ICollection<System.ValueTuple<int,int>>
 	// System.Collections.Generic.ICollection<System.ValueTuple<int,object>>
@@ -175,6 +182,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IComparer<object>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,UIInfo>>
+	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,byte>>
 	// System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.IEnumerable<System.ValueTuple<int,int>>
 	// System.Collections.Generic.IEnumerable<System.ValueTuple<int,object>>
@@ -184,6 +192,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IEnumerable<object>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<int,object>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,UIInfo>>
+	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,byte>>
 	// System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<object,object>>
 	// System.Collections.Generic.IEnumerator<System.ValueTuple<int,int>>
 	// System.Collections.Generic.IEnumerator<System.ValueTuple<int,object>>
@@ -200,6 +209,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IList<object>
 	// System.Collections.Generic.KeyValuePair<int,object>
 	// System.Collections.Generic.KeyValuePair<object,UIInfo>
+	// System.Collections.Generic.KeyValuePair<object,byte>
 	// System.Collections.Generic.KeyValuePair<object,object>
 	// System.Collections.Generic.LinkedList.Enumerator<object>
 	// System.Collections.Generic.LinkedList<object>
@@ -251,6 +261,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Comparison<object>
 	// System.Func<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>>
 	// System.Func<int>
+	// System.Func<object,byte>
 	// System.Func<object,object,object>
 	// System.Func<object,object>
 	// System.Func<object>
@@ -300,17 +311,21 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	{
 		// Cysharp.Threading.Tasks.UniTask.Awaiter<object> Cysharp.Threading.Tasks.AddressablesAsyncExtensions.GetAwaiter<object>(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>)
 		// Cysharp.Threading.Tasks.UniTask<object> Cysharp.Threading.Tasks.AddressablesAsyncExtensions.ToUniTask<object>(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>,System.IProgress<float>,Cysharp.Threading.Tasks.PlayerLoopTiming,System.Threading.CancellationToken,bool)
-		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,BattleManager.<InitUI>d__3>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,BattleManager.<InitUI>d__3&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,BattleManager.<InitUI>d__4>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,BattleManager.<InitUI>d__4&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,HotUpdateApp.<Init>d__1>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,HotUpdateApp.<Init>d__1&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,UIManager.<SetSprite>d__9>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,UIManager.<SetSprite>d__9&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.AwaitUnsafeOnCompleted<Cysharp.Threading.Tasks.UniTask.Awaiter<object>,UIManager.<OpenUI>d__7>(Cysharp.Threading.Tasks.UniTask.Awaiter<object>&,UIManager.<OpenUI>d__7&)
-		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.Start<BattleManager.<InitUI>d__3>(BattleManager.<InitUI>d__3&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.Start<BattleManager.<InitUI>d__4>(BattleManager.<InitUI>d__4&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.Start<HotUpdateApp.<Init>d__1>(HotUpdateApp.<Init>d__1&)
+		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.Start<LevelManager.<LoadLevel>d__0>(LevelManager.<LoadLevel>d__0&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder.Start<UIManager.<SetSprite>d__9>(UIManager.<SetSprite>d__9&)
 		// System.Void Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder<object>.Start<UIManager.<OpenUI>d__7>(UIManager.<OpenUI>d__7&)
 		// Cysharp.Threading.Tasks.UniTask<object> Cysharp.Threading.Tasks.UniTask.FromCanceled<object>(System.Threading.CancellationToken)
 		// Cysharp.Threading.Tasks.UniTask<object> Cysharp.Threading.Tasks.UniTask.FromException<object>(System.Exception)
 		// Cysharp.Threading.Tasks.UniTask<object> Cysharp.Threading.Tasks.UniTask.FromResult<object>(object)
+		// object System.Activator.CreateInstance<object>()
+		// bool System.Linq.Enumerable.Contains<object>(System.Collections.Generic.IEnumerable<object>,object)
+		// bool System.Linq.Enumerable.Contains<object>(System.Collections.Generic.IEnumerable<object>,object,System.Collections.Generic.IEqualityComparer<object>)
 		// UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object> UnityEngine.AddressableAssets.Addressables.LoadAssetAsync<object>(object)
 		// UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object> UnityEngine.AddressableAssets.AddressablesImpl.LoadAssetAsync<object>(object)
 		// UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object> UnityEngine.AddressableAssets.AddressablesImpl.LoadAssetWithChain<object>(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,object)

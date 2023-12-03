@@ -28,6 +28,7 @@ public class UIStart : UIBase
             Addressables.LoadSceneAsync("Assets/GameMain/Scene/ui_test.unity");
             CloseUI();
         });
+        btn2.gameObject.SetActive(false);
 
         var btn3 = this.transform.Find("Role");
         uiBtn = btn3.GetComponent<Button>();

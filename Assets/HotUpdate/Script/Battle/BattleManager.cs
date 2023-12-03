@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    protected GameObject root;
+
     protected UIMap _uiMap;
     protected UIButtom _buttom;
 

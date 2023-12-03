@@ -16,6 +16,8 @@ public class HotUpdateApp : MonoBehaviour
     {
         DontDestroyOnLoad(this);
 
+        DontDestroyOnLoad(Camera.main);
+
         //加载UI框架
         Object uiRoot = await Addressables.LoadAssetAsync<Object>("Assets/GameMain/Prefabs/UIRoot.prefab");
         var instantiate = Instantiate(uiRoot) as GameObject;
