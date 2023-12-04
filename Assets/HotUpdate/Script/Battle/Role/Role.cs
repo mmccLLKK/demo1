@@ -99,8 +99,8 @@ public class Role : MonoBehaviour
         // 因为逻辑简单...这里居然是一个笛卡尔积
         List<(RoleStateType, RoleStateType)> trans = new List<(RoleStateType, RoleStateType)>();
         trans.Add((RoleStateType.idle, RoleStateType.move));
-        trans.Add((RoleStateType.idle, RoleStateType.attack));
-        trans.Add((RoleStateType.move, RoleStateType.attack));
+        // trans.Add((RoleStateType.idle, RoleStateType.attack));
+        // trans.Add((RoleStateType.move, RoleStateType.attack));
         trans.Add((RoleStateType.move, RoleStateType.idle));
         // trans.Add((RoleStateType.attack, RoleStateType.idle));
         // trans.Add((RoleStateType.attack, RoleStateType.move));
@@ -124,6 +124,8 @@ public class Role : MonoBehaviour
 
     public void SetMoveDir(Vector3 dir)
     {
+        //方向修正,先这类游戏输入方向一定是在世界方向上方的投影
+        dir = Vector3.ProjectOnPlane(dir, Vector3.up);
         moveDir = dir;
     }
 
@@ -137,7 +139,7 @@ public class Role : MonoBehaviour
         var dir = moveDir.normalized;
         if (canRotate)
         {
-            this.transform.forward = dir;
+            this.transform.forward = Vector3.Slerp(this.transform.forward, dir, 0.5f);
         }
 
         this.transform.position += Time.deltaTime * moveSpeed * dir;

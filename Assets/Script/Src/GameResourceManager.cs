@@ -23,6 +23,10 @@ public class GameResourceManager
     public async UniTask Init()
     {
         await Addressables.InitializeAsync();
+        //编辑器下不需要使用热更流程.
+#if UNITY_EDITOR
+        autoUpdate = false;
+#endif
         if (autoUpdate)
         {
             try
@@ -63,9 +67,9 @@ public class GameResourceManager
             await _download(resourceLocator);
             Debug.Log($"下载资源:{resourceLocator}完成");
         }
-        
-        //需要重新执行初始化工作        
-        await Addressables.InitializeAsync();
+
+        //清除一些东西
+        Addressables.CleanBundleCache();
     }
 
     private async UniTask _download(IResourceLocator resourceLocator)

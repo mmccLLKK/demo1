@@ -86,3 +86,5 @@ node_modules/
 /HybridCLRData
 /.idea/
 /BuildOutput
+/Assets/GameMain/Dlls
+/Assets/GameMain/AOTDlls

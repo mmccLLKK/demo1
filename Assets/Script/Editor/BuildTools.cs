@@ -22,8 +22,13 @@ namespace UnityEditor.AddressableAssets.Build
 
             CopyAOTDll();
 
+            AssetDatabase.Refresh();
+
             //全量编译AddressAble
             AddressableAssetSettings.CleanPlayerContent();
+
+            AssetDatabase.Refresh();
+
             AddressableAssetSettings.BuildPlayerContent();
         }
 
@@ -46,6 +51,7 @@ namespace UnityEditor.AddressableAssets.Build
             {
                 Directory.CreateDirectory(outputPath);
             }
+
             //会删除顶级目录
             Directory.Delete(outputPath, true);
             BuildPlayerOptions buildOptions = new BuildPlayerOptions();

@@ -1,10 +1,7 @@
-namespace HotUpdate.Script.Battle.Ability.Base
+/// <summary>
+/// 可以多重释放的类型
+/// 比如烬的大招
+/// </summary>
+public class AbilityMultipleCastBase : AbilityBase
 {
-    /// <summary>
-    /// 可以多重释放的类型
-    /// 比如烬的大招()
-    /// </summary>
-    public class AbilityMultipleCastBase : AbilityBase
-    {
-    }
 }

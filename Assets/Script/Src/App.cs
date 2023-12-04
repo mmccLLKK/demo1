@@ -20,6 +20,7 @@ public class App : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
         DontDestroyOnLoad(this);
         Init();
     }

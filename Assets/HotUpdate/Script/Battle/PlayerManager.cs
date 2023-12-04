@@ -5,5 +5,13 @@
 /// </summary>
 public class PlayerManager
 {
-    protected Dictionary<int, Player> players = new Dictionary<int, Player>();
+    /// <summary>
+    /// 所有玩家
+    /// </summary>
+    protected Dictionary<int, Player> players = new();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected Dictionary<int, PlayerData> playerDatas = new();
 }
