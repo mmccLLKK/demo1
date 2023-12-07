@@ -3,7 +3,10 @@ using UnityEngine;
 
 public abstract class AbilityBase
 {
+    protected AbilityConfigBase configBase;
+
     public Role owner;
+
     public Vector3 dir = Vector3.zero;
 
     /// <summary>
@@ -15,6 +18,14 @@ public abstract class AbilityBase
     /// 委托.当技能释放完成回调
     /// </summary>
     public Action OnAbilityEnd;
+
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    public virtual void Init(AbilityConfigBase configBase)
+    {
+        this.configBase = configBase;
+    }
 
     public void SetDir(Vector3 dir)
     {

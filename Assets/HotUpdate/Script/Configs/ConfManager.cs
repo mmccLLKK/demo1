@@ -1,8 +1,5 @@
-﻿public class ConfManager
+﻿public class ConfManager : Singleton<ConfManager>
 {
-    
-    
-    
     /// <summary>
     /// 关卡配置
     /// </summary>
@@ -17,4 +14,9 @@
     /// 角色模板配置
     /// </summary>
     public RoleTemplateConfigs roleTemplateConfigs;
+
+    /// <summary>
+    /// 角色配置
+    /// </summary>
+    public RoleConfigs roleConfigs;
 }

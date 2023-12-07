@@ -6,7 +6,7 @@ public abstract class Singleton<T> where T : Singleton<T>, new()
     private static T instance;
     private static readonly object lockObject = new object();
 
-    public static T Instance
+    public static T inst
     {
         get
         {

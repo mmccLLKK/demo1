@@ -1,27 +1,45 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-public class RoleAbilityManager
+public class RoleAbilityManager : MonoBehaviour
 {
-    protected List<AbilityBase> _abilityBases = new();
+    protected Dictionary<string, AbilityBase> _abilityBases = new();
+
 
     /// <summary>
-    /// 一般都是通过一个配置来初始化一个技能...我们这里先写死.验证逻辑
+    /// 添加技能
     /// </summary>
-    /// <param name="abilityBase"></param>
-    public void AddAbility(AbilityBase abilityBase)
+    /// <param name="abilityId">技能</param>
+    /// <param name="configStr">配置</param>
+    /// <returns></returns>
+    public AbilityBase AddAbility(string abilityId, string configStr)
     {
-        //避免重复添加
-        if (_abilityBases.Contains(abilityBase))
+        //不能重复添加技能
+        if (_abilityBases.ContainsKey(abilityId))
         {
-            return;
+            return _abilityBases[abilityId];
         }
 
-        _abilityBases.Add(abilityBase);
+        //创建技能
+        var abilityBase = AbilityFactory.CreateAbility(abilityId, configStr);
+        _abilityBases.Add(abilityId, abilityBase);
+        return abilityBase;
     }
 
-    public void RemoveAbility(AbilityBase abilityBase)
+    /// <summary>
+    /// 获取一个技能
+    /// </summary>
+    public AbilityBase GetAbility(string abilityId)
     {
-        _abilityBases.Remove(abilityBase);
+        return _abilityBases.GetValueOrDefault(abilityId, null);
+    }
+
+    public void RemoveAbility(string abilityId)
+    {
+        if (_abilityBases.ContainsKey(abilityId))
+        {
+            _abilityBases.Remove(abilityId);
+        }
     }
 
     /// <summary>

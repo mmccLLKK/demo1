@@ -7,7 +7,14 @@ public class Role : MonoBehaviour
 
     public RoleFSM roleFsm;
 
+    public RoleAbilityManager roleAbilityManager;
+
     public Timer timer;
+
+    /// <summary>
+    /// 快速开发的时候暂时使用已有的 KCC 代替
+    /// </summary>
+    public CharacterController kcc;
 
     #region 角色逻辑状态动态数据
 
@@ -82,8 +89,20 @@ public class Role : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    /// <summary>
+    /// 为了让这个体系在空编辑器下也能使用,后续会去掉该流程
+    /// </summary>
+    protected bool _is_init = false;
+
+    public void Init()
     {
+        if (_is_init)
+        {
+            return;
+        }
+
+        _is_init = true;
+
         //一般角色状态机都是通过配置来的.我们这里直接写死在里边
         List<(RoleStateType, StateMachineBase)> states = new List<(RoleStateType, StateMachineBase)>();
         states.Add((RoleStateType.idle, new RoleIdleStateMachine()));
@@ -111,6 +130,11 @@ public class Role : MonoBehaviour
         roleFsm.SetState(RoleStateType.idle, true);
     }
 
+    private void Awake()
+    {
+        Init();
+    }
+
     //walk 特效
     public void playActoin(string anim)
     {
@@ -133,6 +157,7 @@ public class Role : MonoBehaviour
     {
         if (!canMove || moveDir == Vector3.zero)
         {
+            kcc.SimpleMove(Vector3.zero);
             return;
         }
 
@@ -142,7 +167,9 @@ public class Role : MonoBehaviour
             this.transform.forward = Vector3.Slerp(this.transform.forward, dir, 0.5f);
         }
 
-        this.transform.position += Time.deltaTime * moveSpeed * dir;
+        //直接修改位置的做法改成
+        kcc.SimpleMove(moveSpeed * dir);
+        // this.transform.position += Time.deltaTime * moveSpeed * dir;
     }
 
     public void ChangeState()

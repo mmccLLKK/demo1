@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// TODO 后续使用命令系统替代(目前暂时不作处理)
+/// </summary>
 public class RoleInput : MonoBehaviour
 {
     private Role role;
@@ -28,13 +31,11 @@ public class RoleInput : MonoBehaviour
         target = main.transform.TransformVector(target);
 
         role.SetMoveDir(target);
-        var keyJ = Input.GetKey(KeyCode.J);
-        var keyK = Input.GetKey(KeyCode.K);
-        if (keyJ && Time.time - preTime > 1)
+        var keyJ = Input.GetKeyDown(KeyCode.J);
+        var keyK = Input.GetKeyDown(KeyCode.K);
+
+        if (keyJ)
         {
-            preTime = Time.time;
-            role.animator.ResetTrigger("attack");
-            role.animator.SetTrigger("attack");
         }
 
         // 按下 Escape 键释放鼠标光标

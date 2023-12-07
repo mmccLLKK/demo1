@@ -71,9 +71,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2715204430342291290}
+  - component: {fileID: 7329084660446643169}
+  - component: {fileID: 9134493578890193554}
+  - component: {fileID: 7710265476421824731}
   - component: {fileID: 1297291741776637839}
   - component: {fileID: 4818388764215585061}
-  - component: {fileID: 5613669402863371312}
   m_Layer: 0
   m_Name: Role3
   m_TagString: Untagged
@@ -100,6 +102,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!143 &7329084660446643169
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567370826047033300}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.2
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!114 &9134493578890193554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567370826047033300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae572f3367d44afa96a879d090c5fb19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7710265476421824731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567370826047033300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac2514211244ea69234a0c133936667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1297291741776637839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,7 +178,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3266042305879395862}
   roleFsm: {fileID: 1297291741776637839}
-  timer: {fileID: 0}
+  roleAbilityManager: {fileID: 7710265476421824731}
+  timer: {fileID: 9134493578890193554}
+  kcc: {fileID: 7329084660446643169}
   canMove: 1
   canRotate: 1
   canAttack: 1
@@ -139,18 +193,6 @@ MonoBehaviour:
   groundNormal: {x: 0, y: 0, z: 0}
   gravityDir: {x: 0, y: 0, z: 0}
   gravityScale: 1
---- !u!114 &5613669402863371312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8567370826047033300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96b29409c1f1409496464692c1427207, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8808337578046579066
 GameObject:
   m_ObjectHideFlags: 0
