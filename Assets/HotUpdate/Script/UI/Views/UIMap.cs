@@ -8,7 +8,7 @@ public class UIMap : UIBase
         Debug.Log("初始化地图");
     }
 
-    public override void OnClose()
+    public override void OnDestroy()
     {
         Debug.Log("地图UI销毁了");
     }

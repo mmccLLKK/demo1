@@ -168,7 +168,7 @@ public class UIManager : MonoBehaviour
 
         // var uiInfo = uiDataMapping[uiName];
         var uiBase = uiDict[uiName];
-        uiBase.OnClose();
+        uiBase.OnDestroy();
         Destroy(uiBase.gameObject);
         // 释放资源
         // Addressables.Release(uiInfo.path);

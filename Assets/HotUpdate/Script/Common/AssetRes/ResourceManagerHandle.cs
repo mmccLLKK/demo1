@@ -3,6 +3,9 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
+/// <summary>
+/// 缺乏脚本语言的灵活,只能这样
+/// </summary>
 public struct HandleOpt
 {
     public Func<string, bool> checkExist;
@@ -11,6 +14,7 @@ public struct HandleOpt
 
 /// <summary>
 /// 资源管理器句柄(分)
+/// 后续再实现.现在先不管
 /// </summary>
 public class ResourceManagerHandle : IResourceManager
 {
@@ -26,7 +30,7 @@ public class ResourceManagerHandle : IResourceManager
         throw new NotImplementedException();
     }
 
-    public void RemoveInstance(GameObject gameObject)
+    public void RemoveInstance(GameObject gameObject, bool isDestroy = true)
     {
         throw new NotImplementedException();
     }

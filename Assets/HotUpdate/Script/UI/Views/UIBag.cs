@@ -23,7 +23,7 @@ public class UIBag : UIBase
         UIManager.Inst().SetSprite(UIData.UI_ATLAS_ITEM_ICON, "21", image);
     }
 
-    public override void OnClose()
+    public override void OnDestroy()
     {
     }
 }

@@ -1,5 +1,7 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 /// <summary>
 /// 资源管理器
@@ -14,7 +16,7 @@ public interface IResourceManager
     /// <summary>
     /// 移除这个实例
     /// </summary>
-    void RemoveInstance(GameObject gameObject);
+    void RemoveInstance(GameObject gameObject, bool isDestroy = true);
 
     /// <summary>
     /// 加载资源  

@@ -39,7 +39,7 @@ public class UIStart : UIBase
         });
     }
 
-    public override void OnClose()
+    public override void OnDestroy()
     {
         Debug.Log("地图UI销毁了");
     }

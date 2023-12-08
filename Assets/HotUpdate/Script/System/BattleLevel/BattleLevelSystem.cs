@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -16,14 +15,14 @@ public class LevelManager
     /// </summary>
     /// <param name="levelId"></param>
     /// <returns></returns>
-    public static async UniTask LoadLevel(string levelId)
+    public static async UniTask<BattleWorld> LoadLevel(string levelId, PlayerData playerData)
     {
         //初始化关卡信息
         var battleLevelConfig = ConfManager.inst.battleLevelConfigs.GetLevelById(levelId);
         if (battleLevelConfig == null)
         {
             Debug.Log($"关卡信息不存在 {levelId}");
-            return;
+            return null;
         }
 
         //切换场景
@@ -33,15 +32,21 @@ public class LevelManager
         if (rootGameObjects.Length != 1)
         {
             Debug.Log($"场景 {scene.Scene.name} 根路径不符合规范.应该只有一个root节点");
-            return;
+            return null;
         }
 
         var rootGameObject = rootGameObjects[0];
-        var battleManager = rootGameObject.AddComponent<BattleManager>();
+        var battleWorld = rootGameObject.AddComponent<BattleWorld>();
         //等待一帧保证添加的物体走完自己的生命周期
         await Task.Delay(1);
-        //初始化角色信息
-        
-        //
+        //需要有关起的配置.来进行初始化加载
+        await battleWorld.Init();
+        await battleWorld.InitUI();
+        //场景和各种机制加载完成过后 开始 初始化角色信息. 并且把角色投入战场
+        foreach (var roleData in playerData.playerRoleDatas)
+        {
+            battleWorld.CreateRole(roleData);
+        }
+        return battleWorld;
     }
 }

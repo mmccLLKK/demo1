@@ -11,7 +11,7 @@ public class UIButtom : UIBase
         bag_btn.onClick.AddListener(() => { UIManager.Inst().OpenUI("UI_BAG"); });
     }
 
-    public override void OnClose()
+    public override void OnDestroy()
     {
     }
 }
