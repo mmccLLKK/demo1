@@ -70,7 +70,7 @@ public class BattleWorld : MonoBehaviour
         var roleRoleAbilityManager = role.roleAbilityManager;
         //TODO 接入真实的技能系统
         var abilityConfigs = confManager.abilityConfigs;
-        foreach (var ability in roleData.abilitys)
+        foreach (var ability in roleData.abilityIds)
         {
             var abilityConfig = abilityConfigs.GetAbilityConfigs(ability);
             if (abilityConfig == null)

@@ -23,23 +23,23 @@ public class UIStart : UIBase
 
         var btn2 = this.transform.Find("UI");
         uiBtn = btn2.GetComponent<Button>();
-        uiBtn.onClick.AddListener(() =>
+        uiBtn.onClick.AddListener(async () =>
         {
             CloseUI();
-            JumpToLevel("level_demo_2").GetAwaiter().GetResult();
+            await JumpToLevel("level_demo_2");
         });
 
         var btn3 = this.transform.Find("Role");
         uiBtn = btn3.GetComponent<Button>();
-        uiBtn.onClick.AddListener(() =>
+        uiBtn.onClick.AddListener(async () =>
         {
             // Addressables.LoadSceneAsync("Assets/GameMain/Scene/newCharacter.unity");
             CloseUI();
-            JumpToLevel("level_demo_1").GetAwaiter().GetResult();
+            await JumpToLevel("level_demo_1");
         });
     }
 
-    public async UniTask JumpToLevel(string levelID)
+    protected async UniTask JumpToLevel(string levelID)
     {
         var playerData = PlayerSystem.inst.curPlayerData;
         await BattleLevelManager.LoadLevel(levelID, playerData);

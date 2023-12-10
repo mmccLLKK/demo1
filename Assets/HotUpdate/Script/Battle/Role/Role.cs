@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Role : MonoBehaviour
@@ -41,6 +42,8 @@ public class Role : MonoBehaviour
     /// </summary>
     public Vector3 moveDir = Vector3.zero;
 
+    public Vector3 curVec = Vector3.zero;
+
     #region 角色属性
 
     /// <summary>
@@ -52,6 +55,11 @@ public class Role : MonoBehaviour
     /// 阻尼
     /// </summary>
     public float dragValue = 1f;
+
+    /// <summary>
+    /// 重量
+    /// </summary>
+    public float weight = 70;
 
     /// <summary>
     /// 跳跃力
@@ -80,7 +88,7 @@ public class Role : MonoBehaviour
     /// <summary>
     /// 重力以及方向
     /// </summary>
-    public Vector3 gravityDir;
+    public Vector3 gravityDir = Vector3.down;
 
     /// <summary>
     /// 重力缩放
@@ -153,23 +161,43 @@ public class Role : MonoBehaviour
         moveDir = dir;
     }
 
-    protected void Move()
+    /// <summary>
+    /// 计算当前速度
+    /// </summary>
+    /// <returns></returns>
+    protected Vector3 CalCurSpeed()
     {
-        if (!canMove || moveDir == Vector3.zero)
+        //这里的计算方式应该根据当前的游戏类型考虑
+        Vector3 rst = Vector3.zero;
+        if (canMove)
         {
-            kcc.SimpleMove(Vector3.zero);
-            return;
+            rst += moveDir * moveSpeed;
         }
+        // rst += Vector3.up * 19.8f;
+        return rst;
+    }
 
-        var dir = moveDir.normalized;
+    /// <summary>
+    /// 移动
+    /// </summary>
+    protected void Movement()
+    {
+        var calCurSpeed = CalCurSpeed();
+
+        // 转向
         if (canRotate)
         {
-            this.transform.forward = Vector3.Slerp(this.transform.forward, dir, 0.5f);
+            var dir = calCurSpeed.normalized;
+            var projectOnPlane = Vector3.ProjectOnPlane(dir, Vector3.up);
+            this.transform.forward = Vector3.Slerp(this.transform.forward, projectOnPlane, 0.5f);
         }
+        //直接修改位置的做法(如果后续有需求.可以处理这部分的东西)
+        kcc.Move(calCurSpeed * Time.deltaTime);
+    }
 
-        //直接修改位置的做法改成
-        kcc.SimpleMove(moveSpeed * dir);
-        // this.transform.position += Time.deltaTime * moveSpeed * dir;
+    protected void Jump()
+    {
+        //没有jump动画.还是别跳了
     }
 
     public void ChangeState()
@@ -197,8 +225,20 @@ public class Role : MonoBehaviour
     {
         //改变默认状态
         ChangeState();
-        //移动
-        Move();
+
+        //画出debug信息
+        DrawDebug();
+    }
+
+    private void OnDrawGizmos()
+    {
+        //移动方向debug
+        Gizmos.DrawRay(transform.position, transform.forward);
+    }
+
+    protected void DrawDebug()
+    {
+        Debug.DrawRay(transform.position, kcc.velocity, Color.green);
     }
 
     /// <summary>
@@ -210,6 +250,12 @@ public class Role : MonoBehaviour
         CheckGround();
         //纠正站立方向
         CorrectUpDir();
+        //跳跃
+        Jump();
+        //移动
+        Movement();
+
+        curVec = kcc.velocity;
     }
 
     /// <summary>

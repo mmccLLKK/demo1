@@ -18,5 +18,5 @@ public class RoleData
     /// <summary>
     /// 能力(这里是指技能)
     /// </summary>
-    public List<string> abilitys;
+    public List<string> abilityIds;
 }

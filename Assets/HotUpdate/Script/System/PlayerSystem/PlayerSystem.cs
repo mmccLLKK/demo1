@@ -26,13 +26,14 @@ public class PlayerSystem : Singleton<PlayerSystem>
             playerId = "test_player",
             name = "临时玩家",
             createTime = System.DateTime.Now.ToString(),
+            //可能有的资源 (金币 物品)  item_id:num
             playerRoleDatas = new List<RoleData>()
             {
                 new RoleData
                 {
                     roleId = "axceler",
                     lv = 1,
-                    abilitys = new() {"axceler_normal_attack"}
+                    abilityIds = new() {"axceler_normal_attack"}
                 }
             }
         };
