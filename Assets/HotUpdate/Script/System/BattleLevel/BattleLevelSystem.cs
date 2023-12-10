@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -47,7 +48,10 @@ public class BattleLevelManager
         {
             var (instId, role) = await battleWorld.CreateRole(roleData);
             battleWorld.PlayerBindRole(playerData.playerId, instId);
+            //这里简单处理一下出生点
+            role.transform.position = battleWorld.roleBornPoint.transform.position;
         }
+
 
         return battleWorld;
     }

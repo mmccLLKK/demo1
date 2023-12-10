@@ -1,7 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [UIBase(uiName: "UI_START", uiPath: "Assets/GameMain/Prefabs/UI/Start.prefab", layer: 100)]
@@ -26,10 +25,9 @@ public class UIStart : UIBase
         uiBtn = btn2.GetComponent<Button>();
         uiBtn.onClick.AddListener(() =>
         {
-            Addressables.LoadSceneAsync("Assets/GameMain/Scene/ui_test.unity");
             CloseUI();
+            JumpToLevel("level_demo_2").GetAwaiter().GetResult();
         });
-        btn2.gameObject.SetActive(false);
 
         var btn3 = this.transform.Find("Role");
         uiBtn = btn3.GetComponent<Button>();
@@ -37,14 +35,14 @@ public class UIStart : UIBase
         {
             // Addressables.LoadSceneAsync("Assets/GameMain/Scene/newCharacter.unity");
             CloseUI();
-            JumpToLevel();
+            JumpToLevel("level_demo_1").GetAwaiter().GetResult();
         });
     }
 
-    public async UniTask JumpToLevel()
+    public async UniTask JumpToLevel(string levelID)
     {
         var playerData = PlayerSystem.inst.curPlayerData;
-        await BattleLevelManager.LoadLevel("level_demo", playerData);
+        await BattleLevelManager.LoadLevel(levelID, playerData);
     }
 
     public override void OnDestroy()

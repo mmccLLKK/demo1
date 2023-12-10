@@ -29,8 +29,13 @@
             var battleLevelConfigs = confManager.battleLevelConfigs.tables;
             battleLevelConfigs.Add(new BattleLevelConfig
             {
-                id = "level_demo",
+                id = "level_demo_1",
                 path = "Assets/GameMain/Scene/newCharacter.unity"
+            });
+            battleLevelConfigs.Add(new BattleLevelConfig
+            {
+                id = "level_demo_2",
+                path = "Assets/GameMain/Scene/battle1.unity"
             });
         }
     }

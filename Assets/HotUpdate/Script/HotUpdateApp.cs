@@ -18,7 +18,7 @@ public class HotUpdateApp : MonoBehaviour
         DontDestroyOnLoad(this);
 
         DontDestroyOnLoad(Camera.main);
-    
+
         //初始化写死的配置
         StaticConfig.InitConfig();
         
