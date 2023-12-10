@@ -12,7 +12,7 @@ public class AbilityConfigs : ConfigsBase<AbilityConfig>
     /// <summary>
     /// 获取指定的技能
     /// </summary>
-    public AbilityConfig GetAbnConfigs(string abilityId)
+    public AbilityConfig GetAbilityConfigs(string abilityId)
     {
         var abilityConfig = tables.Find(table => table.id.Equals(abilityId));
         return abilityConfig;

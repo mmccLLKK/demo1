@@ -8,7 +8,7 @@ using UnityEngine.AddressableAssets;
 /// 游戏设计为关卡模式.箱庭式的战斗方式
 /// 这里主要是管理进入关卡的所有流程,以及战斗数据的填充
 /// </summary>
-public class LevelManager
+public class BattleLevelManager
 {
     /// <summary>
     /// 切换到对应的关卡
@@ -45,8 +45,10 @@ public class LevelManager
         //场景和各种机制加载完成过后 开始 初始化角色信息. 并且把角色投入战场
         foreach (var roleData in playerData.playerRoleDatas)
         {
-            battleWorld.CreateRole(roleData);
+            var (instId, role) = await battleWorld.CreateRole(roleData);
+            battleWorld.PlayerBindRole(playerData.playerId, instId);
         }
+
         return battleWorld;
     }
 }

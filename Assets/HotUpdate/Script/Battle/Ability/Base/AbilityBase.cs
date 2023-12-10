@@ -12,7 +12,7 @@ public abstract class AbilityBase
     /// <summary>
     /// 技能状态
     /// </summary>
-    public AbilityStatus abilityStatus;
+    public AbilityStatus abilityStatus = AbilityStatus.CanRelease;
 
     /// <summary>
     /// 委托.当技能释放完成回调
@@ -39,7 +39,7 @@ public abstract class AbilityBase
     /// <summary>
     /// 释放开始
     /// </summary>
-    public void CasteStart()
+    public virtual void CasteStart()
     {
     }
 

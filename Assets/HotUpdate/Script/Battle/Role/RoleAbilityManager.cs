@@ -1,10 +1,19 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class RoleAbilityManager : MonoBehaviour
 {
     protected Dictionary<string, AbilityBase> _abilityBases = new();
 
+    protected Role _role;
+
+    private void Awake()
+    {
+        _role = GetComponent<Role>();
+    }
 
     /// <summary>
     /// 添加技能
@@ -22,6 +31,7 @@ public class RoleAbilityManager : MonoBehaviour
 
         //创建技能
         var abilityBase = AbilityFactory.CreateAbility(abilityId, configStr);
+        abilityBase.owner = _role;
         _abilityBases.Add(abilityId, abilityBase);
         return abilityBase;
     }
@@ -32,6 +42,12 @@ public class RoleAbilityManager : MonoBehaviour
     public AbilityBase GetAbility(string abilityId)
     {
         return _abilityBases.GetValueOrDefault(abilityId, null);
+    }
+
+    public List<AbilityBase> GetAllAbilities()
+    {
+        var abilityBases = _abilityBases.Values.ToList();
+        return abilityBases;
     }
 
     public void RemoveAbility(string abilityId)

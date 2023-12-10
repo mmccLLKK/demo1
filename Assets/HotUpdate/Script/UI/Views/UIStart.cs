@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -34,13 +35,20 @@ public class UIStart : UIBase
         uiBtn = btn3.GetComponent<Button>();
         uiBtn.onClick.AddListener(() =>
         {
-            Addressables.LoadSceneAsync("Assets/GameMain/Scene/newCharacter.unity");
+            // Addressables.LoadSceneAsync("Assets/GameMain/Scene/newCharacter.unity");
             CloseUI();
+            JumpToLevel();
         });
+    }
+
+    public async UniTask JumpToLevel()
+    {
+        var playerData = PlayerSystem.inst.curPlayerData;
+        await BattleLevelManager.LoadLevel("level_demo", playerData);
     }
 
     public override void OnDestroy()
     {
-        Debug.Log("地图UI销毁了");
+        Debug.Log("初始ui销毁");
     }
 }

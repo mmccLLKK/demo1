@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 public class PlayerSystem : Singleton<PlayerSystem>
 {
@@ -18,9 +21,20 @@ public class PlayerSystem : Singleton<PlayerSystem>
         //反序列化出玩家存档
 
         //TODO 我们这里先搞一个假的
-
-        PlayerData playerData = new PlayerData()
+        PlayerData playerData = new PlayerData
         {
+            playerId = "test_player",
+            name = "临时玩家",
+            createTime = System.DateTime.Now.ToString(),
+            playerRoleDatas = new List<RoleData>()
+            {
+                new RoleData
+                {
+                    roleId = "axceler",
+                    lv = 1,
+                    abilitys = new() {"axceler_normal_attack"}
+                }
+            }
         };
         return playerData;
     }

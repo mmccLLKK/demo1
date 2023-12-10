@@ -34,8 +34,14 @@ public class RoleInput : MonoBehaviour
         var keyJ = Input.GetKeyDown(KeyCode.J);
         var keyK = Input.GetKeyDown(KeyCode.K);
 
-        if (keyJ)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            var allAbilities = role.roleAbilityManager.GetAllAbilities();
+            var abilityBase = allAbilities[0];
+            if (abilityBase.abilityStatus == AbilityStatus.CanRelease)
+            {
+                abilityBase.CasteStart();
+            }
         }
 
         // 按下 Escape 键释放鼠标光标

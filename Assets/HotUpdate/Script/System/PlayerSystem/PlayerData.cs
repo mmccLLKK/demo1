@@ -18,7 +18,7 @@ public class PlayerData
     /// <summary>
     /// 存档创建时间
     /// </summary>
-    public int createTime;
+    public string createTime;
 
     /// <summary>
     /// 角色拥有的角色

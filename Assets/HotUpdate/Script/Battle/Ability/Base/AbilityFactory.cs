@@ -6,38 +6,47 @@ using Newtonsoft.Json;
 [AttributeUsage(AttributeTargets.Class)]
 public class AbilityTypeAttribute : Attribute
 {
-    public string abilityId { get; set; }
+    public string templateName { get; set; }
 
-    public AbilityTypeAttribute(string id)
+    public AbilityTypeAttribute(string templateName)
     {
-        abilityId = id;
+        this.templateName = templateName;
     }
 }
 
 [AttributeUsage(AttributeTargets.Class)]
 public class AbilityConfigAttribute : Attribute
 {
-    public string abilityId { get; set; }
+    public string templateName { get; set; }
 
-    public AbilityConfigAttribute(string id)
+    public AbilityConfigAttribute(string templateName)
     {
-        abilityId = id;
+        this.templateName = templateName;
     }
+}
+
+public struct AbilityInfo
+{
+    public string templateName;
+    public Type type;
+    public Type confType;
 }
 
 public class AbilityFactory
 {
     protected static bool isInit = false;
 
-    protected static Dictionary<string, Type> abilityTypes = new();
-    protected static Dictionary<string, Type> abilityConfigTypes = new();
+    protected static Dictionary<string, AbilityInfo> abilityInfos = new();
 
-    public void Init()
+    public static void Init()
     {
         if (isInit)
         {
             return;
         }
+
+        Dictionary<string, Type> typeDic = new();
+        Dictionary<string, Type> configTypeDic = new();
 
         isInit = true;
         Assembly assembly = Assembly.GetExecutingAssembly();
@@ -49,47 +58,72 @@ public class AbilityFactory
             attributes = type.GetCustomAttributes(typeof(AbilityTypeAttribute), true);
             if (attributes.Length > 0)
             {
-                AbilityTypeAttribute uiBaseAttribute = (AbilityTypeAttribute) attributes[0];
-                var abilityId = uiBaseAttribute.abilityId;
+                AbilityTypeAttribute abilityTypeAttribute = (AbilityTypeAttribute) attributes[0];
+                var templateName = abilityTypeAttribute.templateName;
+                typeDic.Add(templateName, type);
                 continue;
             }
 
             // 能力配置类型
-            attributes = type.GetCustomAttributes(typeof(AbilityTypeAttribute), true);
+            attributes = type.GetCustomAttributes(typeof(AbilityConfigAttribute), true);
+            if (attributes.Length > 0)
+            {
+                AbilityConfigAttribute abilityConfigAttribute = (AbilityConfigAttribute) attributes[0];
+                var templateName = abilityConfigAttribute.templateName;
+                configTypeDic.Add(templateName, type);
+                continue;
+            }
+        }
+
+        //填充
+        foreach (var keyValuePair in typeDic)
+        {
+            var templateName = keyValuePair.Key;
+            var type = keyValuePair.Value;
+            var confType = configTypeDic.GetValueOrDefault(templateName, null);
+
+            abilityInfos.Add(templateName, new AbilityInfo
+            {
+                templateName = templateName,
+                type = type,
+                confType = confType,
+            });
         }
     }
 
     /// <summary>
     /// 创建能力
     /// </summary>
-    /// <param name="abilityId">模板</param>
+    /// <param name="templateName">模板</param>
     /// <param name="configStr">配置</param>
-    public static AbilityBase CreateAbility(string abilityId, string configStr)
+    public static AbilityBase CreateAbility(string templateName, string configStr)
     {
-        // 模板
-        if (!abilityTypes.ContainsKey(abilityId))
+        //尝试初始化
+        Init();
+
+        // 模板信息
+        if (!abilityInfos.ContainsKey(templateName))
         {
-            throw new Exception($"技能模板不存在 {abilityId}");
+            throw new Exception($"技能模板不存在 {templateName}");
         }
 
-        // 模板配置
-        if (!abilityConfigTypes.ContainsKey(abilityId))
-        {
-            throw new Exception($"技能模板配置不存在 {abilityId}");
-        }
+        var info = abilityInfos[templateName];
+        var abilityType = info.type;
+        var infoConfType = info.confType;
 
-        var abilityType = abilityTypes[abilityId];
-        var abilityConfigType = abilityConfigTypes[abilityId];
-        var config = JsonConvert.DeserializeObject(configStr, abilityConfigType) as AbilityConfigBase;
+        AbilityConfigBase config = null;
+        if (infoConfType != null)
+        {
+            config = JsonConvert.DeserializeObject(configStr, infoConfType) as AbilityConfigBase;
+        }
 
         var instance = Activator.CreateInstance(abilityType) as AbilityBase;
         if (instance == null)
         {
-            throw new Exception($"技能初始化失败 {abilityId}");
+            throw new Exception($"技能初始化失败 {templateName}");
         }
 
         instance.Init(config);
-
         return instance;
     }
 }
