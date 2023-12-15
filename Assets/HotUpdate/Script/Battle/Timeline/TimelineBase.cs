@@ -8,8 +8,10 @@ namespace Game.Mine
     /// </summary>
     public enum TimelineTraceType
     {
+        Main, //主时间轴
         Anim, //动画播放
         Pos, //位置改变
+        DamageArea, //伤害区域
     }
 
     [AttributeUsage(AttributeTargets.Class)]
@@ -65,6 +67,19 @@ namespace Game.Mine
         public abstract void Tick();
     }
 
+    [Timeline("技能主时间轴", TimelineTraceType.Main)]
+    public class TimelineAbilityMain : TimelineBase
+    {
+        public override void Start()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Tick()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     /// <summary>
     /// 动画轨道(播放动画使用)
@@ -108,6 +123,20 @@ namespace Game.Mine
 
         public override void Tick()
         {
+        }
+    }
+
+    [Timeline("伤害区域", TimelineTraceType.DamageArea)]
+    public class TimelineDamageArea : TimelineBase
+    {
+        public override void Start()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Tick()
+        {
+            throw new NotImplementedException();
         }
     }
 }

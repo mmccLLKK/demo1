@@ -12,7 +12,7 @@ public abstract class AbilityBase
     /// <summary>
     /// 技能状态
     /// </summary>
-    public AbilityStatus abilityStatus = AbilityStatus.CanRelease;
+    public AbilityStatus abilityStatus = AbilityStatus.CanCast;
 
     /// <summary>
     /// 委托.当技能释放完成回调

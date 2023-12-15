@@ -24,6 +24,8 @@ namespace Script.Battle.Ability.Axceler
 
         protected int stepCur = 1;
 
+        protected List<Task> tasks = new();
+        
         /// <summary>
         /// 这里相当于写死了. 因为一般情况下 技能每一段的长度都是由 Timeline 决定的
         /// </summary>
@@ -37,12 +39,12 @@ namespace Script.Battle.Ability.Axceler
 
         public override void CasteStart()
         {
-            NextStep();
+            var task = NextStep();
         }
 
-        protected async void NextStep()
+        protected async Task NextStep()
         {
-            abilityStatus = AbilityStatus.CantRelease;
+            abilityStatus = AbilityStatus.CantCast;
             var (animName, time) = stepInfo[stepCur];
             Debug.Log($"当前使用到技能 Ability_Normal_Attack 的第 {stepCur} 段");
             owner.playActoin(animName);
@@ -66,7 +68,7 @@ namespace Script.Battle.Ability.Axceler
                 this.stepCur = 1;
             }
 
-            abilityStatus = AbilityStatus.CanRelease;
+            abilityStatus = AbilityStatus.CanCast;
         }
     }
 }

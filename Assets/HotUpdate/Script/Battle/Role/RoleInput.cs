@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 /// <summary>
 /// TODO 后续使用命令系统替代(目前暂时不作处理)
@@ -38,7 +39,7 @@ public class RoleInput : MonoBehaviour
         {
             var allAbilities = role.roleAbilityManager.GetAllAbilities();
             var abilityBase = allAbilities[0];
-            if (abilityBase.abilityStatus == AbilityStatus.CanRelease)
+            if (abilityBase.abilityStatus == AbilityStatus.CanCast)
             {
                 abilityBase.CasteStart();
             }
