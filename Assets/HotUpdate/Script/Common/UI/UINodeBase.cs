@@ -17,6 +17,7 @@ public abstract class UINodeBase
         this.gameObject = gameObject;
         this.transform = gameObject.transform;
         this.rectTransform = gameObject.GetComponent<RectTransform>();
+        this.OnInit();
     }
 
     /// <summary>
@@ -34,6 +35,11 @@ public abstract class UINodeBase
         var instance = Activator.CreateInstance<T>();
         instance.Init(childGameObject);
         instance.OnInit();
+    }
+
+    public void SetActive(bool isActive)
+    {
+        this.gameObject.SetActive(isActive);
     }
 
     // /// <summary>

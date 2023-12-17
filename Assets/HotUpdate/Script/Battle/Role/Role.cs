@@ -10,8 +10,6 @@ public class Role : MonoBehaviour
 
     public RoleAbilityManager roleAbilityManager;
 
-    public Timer timer;
-
     /// <summary>
     /// 快速开发的时候暂时使用已有的 KCC 代替
     /// </summary>
@@ -173,6 +171,7 @@ public class Role : MonoBehaviour
         {
             rst += moveDir * moveSpeed;
         }
+
         // rst += Vector3.up * 19.8f;
         return rst;
     }
@@ -191,6 +190,7 @@ public class Role : MonoBehaviour
             var projectOnPlane = Vector3.ProjectOnPlane(dir, Vector3.up);
             this.transform.forward = Vector3.Slerp(this.transform.forward, projectOnPlane, 0.5f);
         }
+
         //直接修改位置的做法(如果后续有需求.可以处理这部分的东西)
         kcc.Move(calCurSpeed * Time.deltaTime);
     }
