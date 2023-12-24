@@ -37,12 +37,12 @@ public class RoleInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            var allAbilities = role.roleAbilityManager.GetAllAbilities();
+            var allAbilities = role.abilityManager.GetAllAbilities();
             var abilityBase = allAbilities[0];
-            if (abilityBase.abilityStatus == AbilityStatus.CanCast)
-            {
-                abilityBase.CasteStart();
-            }
+            // if (!abilityBase.isCasting || abilityBase.isCanCancel)
+            // {
+            //     abilityBase.CasteStart();
+            // }
         }
 
         // 按下 Escape 键释放鼠标光标

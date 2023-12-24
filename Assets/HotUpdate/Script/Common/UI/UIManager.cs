@@ -97,16 +97,17 @@ public class UIManager : MonoBehaviour
     public async UniTask<UIBase> OpenUI(string uiName)
     {
         Debug.Log($"打开UI {uiName}");
-        //这里的逻辑可以视情况而定,本质上是不允许打开同样的UI.直接报错也可以,应该成为项目中大家都认可的规范
-        if (uiDict.ContainsKey(uiName))
-        {
-            return uiDict[uiName];
-        }
 
         //初始化类
         if (!uiDataMapping.ContainsKey(uiName))
         {
             throw new Exception($"未注册的UI {uiName}");
+        }
+
+        //这里的逻辑可以视情况而定,本质上是不允许打开同样的UI.直接报错也可以,应该成为项目中大家都认可的规范
+        if (uiDict.ContainsKey(uiName))
+        {
+            return uiDict[uiName];
         }
 
         UIBase ui = null;
@@ -140,8 +141,6 @@ public class UIManager : MonoBehaviour
             //初始化UI脚本
             var instance = Activator.CreateInstance(uiInfo.type) as UIBase;
             instance.Init(go);
-            instance.OnInit();
-
             instance.CloseUI = () => { this.CloseUI(uiName); };
 
             ui = instance;

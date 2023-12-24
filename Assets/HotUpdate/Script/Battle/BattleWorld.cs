@@ -36,13 +36,9 @@ public class BattleWorld : MonoBehaviour
     #endregion
 
 
-    private void Start()
-    {
-        roleBornPoint = GetComponentInChildren<BornPoint>(true);
-    }
-
     public async UniTask Init()
     {
+        roleBornPoint = GetComponentInChildren<BornPoint>(true);
     }
 
     public async UniTask InitUI()
@@ -67,7 +63,7 @@ public class BattleWorld : MonoBehaviour
         GameObject roleGameObject = await Addressables.InstantiateAsync(roleTemplateConfigById.path);
         await Task.Delay(1);
         Role role = roleGameObject.GetComponent<Role>();
-        var roleRoleAbilityManager = role.roleAbilityManager;
+        var abilityManager = role.abilityManager;
         //TODO 接入真实的技能系统
         var abilityConfigs = confManager.abilityConfigs;
         foreach (var ability in roleData.abilityIds)
@@ -79,7 +75,7 @@ public class BattleWorld : MonoBehaviour
                 continue;
             }
 
-            roleRoleAbilityManager.AddAbility(abilityConfig.templateName, abilityConfig.confStr);
+            abilityManager.AddAbility(abilityConfig.templateName, abilityConfig.confStr);
         }
 
         roleIdGen++;

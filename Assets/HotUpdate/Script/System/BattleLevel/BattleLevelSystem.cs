@@ -38,8 +38,6 @@ public class BattleLevelManager
 
         var rootGameObject = rootGameObjects[0];
         var battleWorld = rootGameObject.AddComponent<BattleWorld>();
-        //等待一帧保证添加的物体走完自己的生命周期
-        await Task.Delay(1);
         //需要有关起的配置.来进行初始化加载
         await battleWorld.Init();
         await battleWorld.InitUI();

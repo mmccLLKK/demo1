@@ -1,18 +1,32 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class RoleAbilityManager : MonoBehaviour
 {
+    /// <summary>
+    /// 持有的能力
+    /// </summary>
     protected Dictionary<string, AbilityBase> _abilityBases = new();
 
-    protected Role _role;
+    /// <summary>
+    /// 执行中的能力
+    /// </summary>
+    protected List<AbilityBase> castingAbility = new();
 
-    private void Awake()
+    private Role _role;
+
+    protected Role role
     {
-        _role = GetComponent<Role>();
+        get
+        {
+            if (_role)
+            {
+                _role = this.gameObject.GetComponent<Role>();
+            }
+
+            return _role;
+        }
     }
 
     /// <summary>
@@ -31,7 +45,7 @@ public class RoleAbilityManager : MonoBehaviour
 
         //创建技能
         var abilityBase = AbilityFactory.CreateAbility(abilityId, configStr);
-        abilityBase.owner = _role;
+        abilityBase.owner = role;
         _abilityBases.Add(abilityId, abilityBase);
         return abilityBase;
     }
@@ -63,5 +77,19 @@ public class RoleAbilityManager : MonoBehaviour
     /// </summary>
     public void UseAbility(AbilityBase abilityBase)
     {
+    }
+
+    /// <summary>
+    /// 固定时长的执行器
+    /// </summary>
+    private void FixedUpdate()
+    {
+        var fixedDeltaTime = Time.fixedDeltaTime;
+
+        foreach (var abilityBase in castingAbility)
+        {
+            abilityBase.timeDuring += fixedDeltaTime;
+            abilityBase.Tick(fixedDeltaTime);
+        }
     }
 }

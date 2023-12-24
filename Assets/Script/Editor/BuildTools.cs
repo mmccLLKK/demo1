@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using HybridCLR.Editor.Commands;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEngine;
 
@@ -18,6 +18,8 @@ namespace UnityEditor.AddressableAssets.Build
             PrebuildCommand.GenerateAll();
             Debug.Log("完成 GenerateAll...");
 
+            CompileDllCommand.CompileDllActiveBuildTarget();
+
             CopyHotUpdateDll();
 
             CopyAOTDll();
@@ -30,6 +32,8 @@ namespace UnityEditor.AddressableAssets.Build
             AssetDatabase.Refresh();
 
             AddressableAssetSettings.BuildPlayerContent();
+
+            AssetDatabase.Refresh();
         }
 
         [MenuItem("Tools/打包流程/打包本平台")]
@@ -67,6 +71,9 @@ namespace UnityEditor.AddressableAssets.Build
         public static void HotUpdate()
         {
             Debug.Log("热更新流程");
+
+            //编译热更C# 代码
+            CompileDllCommand.CompileDllActiveBuildTarget();
 
             CopyHotUpdateDll();
 

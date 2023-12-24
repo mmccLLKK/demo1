@@ -1,45 +1,32 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 [UIBase(uiName: "UI_START", uiPath: "Assets/GameMain/Prefabs/UI/Start.prefab", layer: 100)]
 public class UIStart : UIBase
 {
-    public Button startBtn;
-
-    public Button uiBtn;
-
     public override void OnInit()
     {
-        var btn1 = this.transform.Find("Battle");
-        startBtn = btn1.GetComponent<Button>();
+        Debug.Log("初始化 UIStart");
 
-        startBtn.onClick.AddListener(() =>
-        {
-            Addressables.LoadSceneAsync("Assets/GameMain/Scene/battle1.unity");
-            CloseUI();
-        });
-
-        var btn2 = this.transform.Find("UI");
-        uiBtn = btn2.GetComponent<Button>();
-        uiBtn.onClick.AddListener(async () =>
+        var btn2 = this.transform.Find("Battle");
+        var uiBtn = btn2.GetComponent<Button>();
+        uiBtn.onClick.AddListener(() =>
         {
             CloseUI();
-            await JumpToLevel("level_demo_2");
+            JumpToLevel("level_demo_2");
         });
 
         var btn3 = this.transform.Find("Role");
-        uiBtn = btn3.GetComponent<Button>();
-        uiBtn.onClick.AddListener(async () =>
+        var roleBtn = btn3.GetComponent<Button>();
+        roleBtn.onClick.AddListener(() =>
         {
-            // Addressables.LoadSceneAsync("Assets/GameMain/Scene/newCharacter.unity");
             CloseUI();
-            await JumpToLevel("level_demo_1");
+            JumpToLevel("level_demo_1");
         });
     }
 
-    protected async UniTask JumpToLevel(string levelID)
+    protected async Task JumpToLevel(string levelID)
     {
         var playerData = PlayerSystem.inst.curPlayerData;
         await BattleLevelManager.LoadLevel(levelID, playerData);

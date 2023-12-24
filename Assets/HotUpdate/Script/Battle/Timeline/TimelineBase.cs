@@ -10,8 +10,9 @@ namespace Game.Mine
     {
         Main, //主时间轴
         Anim, //动画播放
-        Pos, //位置改变
+        Movement, //移动(根据速度)
         DamageArea, //伤害区域
+        CharacterStateCtrl, //角色状态控制
     }
 
     [AttributeUsage(AttributeTargets.Class)]
@@ -32,9 +33,9 @@ namespace Game.Mine
     /// <summary>
     /// 基础timeline
     /// </summary>
-    public abstract class TimelineBase
+    public abstract class TimelineBase<T>
     {
-        protected GameObject gameObject;
+        protected T target;
 
         /// <summary>
         /// 开始时间 (毫秒)
@@ -51,9 +52,9 @@ namespace Game.Mine
         /// </summary>
         public float scale;
 
-        public virtual void Init(GameObject gameObject)
+        public virtual void Init(T target)
         {
-            this.gameObject = gameObject;
+            this.target = target;
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace Game.Mine
     }
 
     [Timeline("技能主时间轴", TimelineTraceType.Main)]
-    public class TimelineAbilityMain : TimelineBase
+    public class TimelineAbilityMain : TimelineBase<bool>
     {
         public override void Start()
         {
@@ -85,26 +86,13 @@ namespace Game.Mine
     /// 动画轨道(播放动画使用)
     /// </summary>
     [Timeline("播放动画", TimelineTraceType.Anim)]
-    public class TimelineAnim : TimelineBase
+    public class TimelineAnim : TimelineBase<Animator>
     {
-        protected Animator animator;
-
         /// <summary>
         /// 动画名
         /// </summary>
         public string animName;
 
-        public override void Init(GameObject gameObject)
-        {
-            base.Init(gameObject);
-            if (!gameObject)
-            {
-                return;
-            }
-
-            animator = gameObject.GetComponent<Animator>();
-        }
-
         public override void Start()
         {
         }
@@ -114,29 +102,16 @@ namespace Game.Mine
         }
     }
 
-    [Timeline("位置调整", TimelineTraceType.Pos)]
-    public class TimelinePos : TimelineBase
-    {
-        public override void Start()
-        {
-        }
-
-        public override void Tick()
-        {
-        }
-    }
 
     [Timeline("伤害区域", TimelineTraceType.DamageArea)]
-    public class TimelineDamageArea : TimelineBase
+    public class TimelineDamageArea : TimelineBase<int>
     {
         public override void Start()
         {
-            throw new NotImplementedException();
         }
 
         public override void Tick()
         {
-            throw new NotImplementedException();
         }
     }
 }

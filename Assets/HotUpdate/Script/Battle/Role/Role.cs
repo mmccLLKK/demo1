@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Role : MonoBehaviour
 {
-    public Animator animator;
+    public RoleAnim roleAnim;
 
     public RoleFSM roleFsm;
 
-    public RoleAbilityManager roleAbilityManager;
+    public RoleAbilityManager abilityManager;
 
     /// <summary>
     /// 快速开发的时候暂时使用已有的 KCC 代替
@@ -28,11 +28,6 @@ public class Role : MonoBehaviour
     /// </summary>
     public bool canRotate = true;
 
-    /// <summary>
-    /// 是否能释放技能
-    /// </summary>
-    public bool canAttack = true;
-
     #endregion
 
     /// <summary>
@@ -40,6 +35,9 @@ public class Role : MonoBehaviour
     /// </summary>
     public Vector3 moveDir = Vector3.zero;
 
+    /// <summary>
+    /// 当前的速度
+    /// </summary>
     public Vector3 curVec = Vector3.zero;
 
     #region 角色属性
@@ -134,6 +132,9 @@ public class Role : MonoBehaviour
         roleFsm.SetStatesInfo(states, trans);
 
         roleFsm.SetState(RoleStateType.idle, true);
+
+        //技能管理器
+        abilityManager = this.gameObject.GetComponent<RoleAbilityManager>();
     }
 
     private void Awake()
@@ -145,7 +146,7 @@ public class Role : MonoBehaviour
     public void playActoin(string anim)
     {
         //播放动效
-        this.animator.CrossFade(anim, 0.1f);
+        this.roleAnim.Play(anim, 0.1f);
 
         //播放特效
 
@@ -248,8 +249,6 @@ public class Role : MonoBehaviour
     {
         //检查是否在地面
         CheckGround();
-        //纠正站立方向
-        CorrectUpDir();
         //跳跃
         Jump();
         //移动
@@ -267,7 +266,8 @@ public class Role : MonoBehaviour
         isInAir = false;
         Vector3 normal = Vector3.zero;
         var raycastHits = new RaycastHit[10];
-        var hitCount = Physics.RaycastNonAlloc(this.transform.position, this.gravityDir, raycastHits, this.gravityDir.sqrMagnitude);
+        var hitCount = Physics.RaycastNonAlloc(this.transform.position, this.gravityDir, raycastHits,
+            this.gravityDir.sqrMagnitude);
         for (int index = 0; index < hitCount; index++)
         {
             //确定地面法线
@@ -283,12 +283,5 @@ public class Role : MonoBehaviour
         }
 
         groundNormal = normal;
-    }
-
-    /// <summary>
-    /// 纠正站立方向
-    /// </summary>
-    protected void CorrectUpDir()
-    {
     }
 }
