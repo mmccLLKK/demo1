@@ -135,6 +135,13 @@ public class Role : MonoBehaviour
 
         //技能管理器
         abilityManager = this.gameObject.GetComponent<RoleAbilityManager>();
+
+        //动画管理器
+        roleAnim = this.GetComponent<RoleAnim>();
+        if (!roleAnim)
+        {
+            roleAnim = this.gameObject.AddComponent<RoleAnim>();
+        }
     }
 
     private void Awake()

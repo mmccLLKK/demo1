@@ -23,20 +23,7 @@ public struct AnimInfo
 
 public class RoleAnim : MonoBehaviour
 {
-    protected Animator animator;
-
-    public void Init()
-    {
-        if (!animator)
-        {
-            animator = this.gameObject.GetComponent<Animator>();
-        }
-
-        if (!animator)
-        {
-            animator = this.gameObject.AddComponent<Animator>();
-        }
-    }
+    public Animator animator;
 
     /// <summary>
     /// 播放一个动画

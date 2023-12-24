@@ -83,6 +83,8 @@ public class UIShopView : MonoBehaviour, ScrollListViewAdapter
             spaceing = 10f,
         });
         scrollListView.RefreshAll(true);
+
+        shopItem.gameObject.SetActive(false);
     }
 
     public void SetData(List<ShopItemData> datas)
@@ -114,6 +116,7 @@ public class UIShopView : MonoBehaviour, ScrollListViewAdapter
     public ScrollListViewItem GetItem()
     {
         var instantiate = Instantiate(shopItem);
+        instantiate.SetActive(true);
         var item = new ShopScrollViewItem();
         item.Init(instantiate);
         item.onClick = (id) => { onSelectItem?.Invoke(id); };

@@ -14,10 +14,7 @@ public class UIStart : UIBase
         uiBtn.onClick.AddListener(() =>
         {
             CloseUI();
-            // JumpToLevel("level_demo_2");
-
-            UIManager.Inst().OpenUI("UI_MAP");
-            UIManager.Inst().OpenUI("UI_BUTTOM");
+            JumpToLevel("level_demo_2");
         });
 
 

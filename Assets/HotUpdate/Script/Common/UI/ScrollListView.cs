@@ -88,6 +88,8 @@ public class ScrollListView : UINodeBase
     {
         scrollRect = this.gameObject.GetComponent<ScrollRect>();
         scrollRect.onValueChanged.AddListener(value => { OnScrollIng(value); });
+        SetRectTransformNormal(scrollRect.viewport);
+        SetRectTransformNormal(scrollRect.content);
         this.maskRect = ConvertRectTransformPositionToTarget(scrollRect.viewport, scrollRect.content, Camera.main);
         //初始化锚点
         SetRectTransformNormal(scrollRect.content);
@@ -225,14 +227,16 @@ public class ScrollListView : UINodeBase
     /// <returns></returns>
     protected Rect ConvertRectTransformPositionToTarget(RectTransform source, RectTransform target, Camera camera)
     {
+        var componentInParent = rectTransform.GetComponentInParent<Canvas>();
+        var worldCamera = componentInParent.worldCamera;
         Vector3[] corners = new Vector3[4];
         source.GetWorldCorners(corners); // 获取image的世界坐标四个顶点
         Vector2[] corner2s = new Vector2[4];
         // 将image的世界坐标转换为目标层级下的局部坐标
         for (int i = 0; i < 4; i++)
         {
-            corners[i] = RectTransformUtility.WorldToScreenPoint(camera, corners[i]);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(target, corners[i], camera, out corner2s[i]);
+            corners[i] = RectTransformUtility.WorldToScreenPoint(worldCamera, corners[i]);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(target, corners[i], worldCamera, out corner2s[i]);
         }
 
         // 计算image在目标层级下的位置和大小
