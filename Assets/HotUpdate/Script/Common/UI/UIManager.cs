@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -180,7 +181,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     /// <param name="atlasName">图集名</param>
     /// <param name="icon">图标</param>
-    public async UniTask SetSprite(string atlasName, string icon, Image image)
+    public async Task SetSprite(string atlasName, string icon, Image image)
     {
         if (!uiSpriteAtlasDic.ContainsKey(atlasName))
         {

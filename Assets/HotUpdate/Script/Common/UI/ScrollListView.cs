@@ -62,6 +62,8 @@ public class ScrollListView : UINodeBase
 
     /// <summary>
     /// 显示中的物体
+    /// key : index
+    /// value : viewItem
     /// </summary>
     protected Dictionary<int, ScrollListViewItem> showingItemDic = new();
 
@@ -150,7 +152,8 @@ public class ScrollListView : UINodeBase
         //实际偏移
         var offset = content.anchoredPosition;
         //可显示区域 (rect 是从左下角开始的)
-        Rect showRect = new Rect(maskRect.position - offset - new Vector2(0, maskRect.size.y - realSize.y), maskRect.size);
+        Rect showRect = new Rect(maskRect.position - offset - new Vector2(0, maskRect.size.y - realSize.y),
+            maskRect.size);
 
         needRecycle.Clear();
         //不需要显示的物体回收
@@ -253,10 +256,12 @@ public class ScrollListView : UINodeBase
         //一个组件占用的实际大小
         var realSize = GetChildRealSize();
 
-        var count = (int) Math.Ceiling((dataCount * 1f) / viewParams.num);
+        var count = (int)Math.Ceiling((dataCount * 1f) / viewParams.num);
 
         //确定 行/列 (横向和竖向的派别本质上就是颠倒行列)
-        var (row, column) = viewParams.dir == ScrollListViewDir.horizaontal ? (viewParams.num, count) : (count, viewParams.num);
+        var (row, column) = viewParams.dir == ScrollListViewDir.horizaontal
+            ? (viewParams.num, count)
+            : (count, viewParams.num);
 
         // content 实际大小
         var contentSize = new Vector2(column * realSize.x, row * realSize.y);
@@ -294,7 +299,16 @@ public class ScrollListView : UINodeBase
             itemRectDic.Add(index, (realCol, realRow, rect));
         }
 
+        //显示区域回收判定
         _recycle_show();
+        //刷新显示当前显示数据(一定会有重复刷新的问题)
+        foreach (var scrollListViewItem in this.showingItemDic)
+        {
+            int index = scrollListViewItem.Key;
+            var viewItem = scrollListViewItem.Value;
+            var data = this.adapter.GetData(index);
+            viewItem.SetData(data);
+        }
     }
 
     /// <summary>
