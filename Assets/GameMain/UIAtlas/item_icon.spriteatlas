@@ -69,16 +69,16 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 5934b58ebb976f2468c239bfe04fb516, type: 3}
   m_PackedSpriteNamesToIndex:
   - FaShiJieZi_04
-  - 066_Sindoran_Shielding_Amulet
-  - 073_Zettas_Mana-Stick
+  - item_2
+  - item_3
   - FaShi_XiongJia_5
   - FaShiXiangLian_03
   - 3035_Last_Whisper
-  - 3026_Guardian_Angel
+  - item_4
   - FaShiYaoDai_04
   - DaJian_08
   - FaShiXie_04
-  - 21
+  - item_1
   - 3065_Spirit_Visage
   - GongShou_ChiBang_3
   - FaShi_TouKui_8

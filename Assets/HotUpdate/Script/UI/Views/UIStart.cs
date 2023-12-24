@@ -14,8 +14,12 @@ public class UIStart : UIBase
         uiBtn.onClick.AddListener(() =>
         {
             CloseUI();
-            JumpToLevel("level_demo_2");
+            // JumpToLevel("level_demo_2");
+
+            UIManager.Inst().OpenUI("UI_MAP");
+            UIManager.Inst().OpenUI("UI_BUTTOM");
         });
+
 
         var btn3 = this.transform.Find("Role");
         var roleBtn = btn3.GetComponent<Button>();

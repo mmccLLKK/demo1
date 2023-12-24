@@ -33,7 +33,7 @@ public class PlayerSystem : Singleton<PlayerSystem>
                 {
                     roleId = "axceler",
                     lv = 1,
-                    abilityIds = new() {"axceler_normal_attack"}
+                    abilityIds = new() { "axceler_normal_attack" }
                 }
             }
         };

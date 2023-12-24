@@ -34,7 +34,7 @@ public class RoleInput : MonoBehaviour
         role.SetMoveDir(target);
         var keyJ = Input.GetKeyDown(KeyCode.J);
         var keyK = Input.GetKeyDown(KeyCode.K);
-
+        return;
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             var allAbilities = role.abilityManager.GetAllAbilities();

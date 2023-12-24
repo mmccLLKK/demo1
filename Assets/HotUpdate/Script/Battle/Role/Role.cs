@@ -146,7 +146,7 @@ public class Role : MonoBehaviour
     public void playActoin(string anim)
     {
         //播放动效
-        this.roleAnim.Play(anim, 0.1f);
+        this.roleAnim?.Play(anim, 0.1f);
 
         //播放特效
 

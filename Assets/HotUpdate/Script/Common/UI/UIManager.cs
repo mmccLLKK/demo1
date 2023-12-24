@@ -80,10 +80,10 @@ public class UIManager : MonoBehaviour
             object[] attributes = type.GetCustomAttributes(typeof(UIBaseAttribute), true);
             if (attributes.Length > 0)
             {
-                UIBaseAttribute uiBaseAttribute = (UIBaseAttribute) attributes[0];
+                UIBaseAttribute uiBaseAttribute = (UIBaseAttribute)attributes[0];
                 var uiName = uiBaseAttribute.uiName;
                 Debug.Log($"注册UI实例: Class Name: {type.Name}, uiName: {uiName} 层级: {uiBaseAttribute.layer}");
-                var uiInfo = new UIInfo() {type = type, path = uiBaseAttribute.uiPath, layer = uiBaseAttribute.layer};
+                var uiInfo = new UIInfo() { type = type, path = uiBaseAttribute.uiPath, layer = uiBaseAttribute.layer };
                 uiDataMapping.Add(uiName, uiInfo);
             }
         }
