@@ -1,12 +1,6 @@
-﻿using System;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using HybridCLR;
-using Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using Object = UnityEngine.Object;
 
 public class App : MonoBehaviour
 {
@@ -23,6 +17,7 @@ public class App : MonoBehaviour
 
     private void Start()
     {
+        gameObject.name = "App_running";
         Application.targetFrameRate = 60;
         DontDestroyOnLoad(this);
         Init();

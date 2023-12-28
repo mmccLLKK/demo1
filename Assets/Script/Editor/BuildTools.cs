@@ -20,11 +20,8 @@ namespace UnityEditor.AddressableAssets.Build
 
             CompileDllCommand.CompileDllActiveBuildTarget();
 
-            CopyHotUpdateDll();
-
-            CopyAOTDll();
-
-            AssetDatabase.Refresh();
+            //生成热更
+            HotUpdate();
 
             //全量编译AddressAble
             AddressableAssetSettings.CleanPlayerContent();
@@ -44,12 +41,13 @@ namespace UnityEditor.AddressableAssets.Build
 
             var dict = new Dictionary<BuildTarget, string>()
             {
-                {BuildTarget.StandaloneWindows64, ".exe"},
-                {BuildTarget.Android, ".apk"},
+                { BuildTarget.StandaloneWindows64, ".exe" },
+                { BuildTarget.Android, ".apk" },
             };
             string prefix = dict.GetValueOrDefault(EditorUserBuildSettings.activeBuildTarget, "");
             // string outputPath = Application.dataPath.Replace("/Assets", $"/BuildOutput/{EditorUserBuildSettings.activeBuildTarget}/{PlayerSettings.productName}{prefix}");
-            string outputPath = Application.dataPath.Replace("/Assets", $"/BuildOutput/{EditorUserBuildSettings.activeBuildTarget}");
+            string outputPath =
+                Application.dataPath.Replace("/Assets", $"/BuildOutput/{EditorUserBuildSettings.activeBuildTarget}");
             //如果没有创建目录
             if (!Directory.Exists(outputPath))
             {
@@ -59,7 +57,15 @@ namespace UnityEditor.AddressableAssets.Build
             //会删除顶级目录
             Directory.Delete(outputPath, true);
             BuildPlayerOptions buildOptions = new BuildPlayerOptions();
-            buildOptions.scenes = new[] {EditorBuildSettings.scenes[0].path};
+            List<string> scenes = new();
+            
+            //进包场景
+            foreach (var editorBuildSettingsScene in EditorBuildSettings.scenes)
+            {
+                scenes.Add(editorBuildSettingsScene.path);
+            }
+
+            buildOptions.scenes = scenes.ToArray();
             buildOptions.target = EditorUserBuildSettings.activeBuildTarget;
             // 输出到实际的文件名下
             buildOptions.locationPathName = $"{outputPath}/{PlayerSettings.productName}{prefix}";
@@ -94,7 +100,7 @@ namespace UnityEditor.AddressableAssets.Build
             var activeBuildTarget = EditorUserBuildSettings.activeBuildTarget;
             var dataPath = Application.dataPath;
             // 需要转移的文件(手动维护)
-            string[] files = new string[] {"HotUpdate.dll"};
+            string[] files = new string[] { "HotUpdate.dll" };
             // 来源地址
             string sourcePath = dataPath.Replace("/Assets", "/HybridCLRData/HotUpdateDlls/" + activeBuildTarget);
             // 目标地址
@@ -110,7 +116,8 @@ namespace UnityEditor.AddressableAssets.Build
             // 需要转移的文件
             var files = AOTGenericReferences.PatchedAOTAssemblyList.ToArray();
             // 来源地址
-            string sourcePath = dataPath.Replace("/Assets", "/HybridCLRData/AssembliesPostIl2CppStrip/" + activeBuildTarget);
+            string sourcePath =
+                dataPath.Replace("/Assets", "/HybridCLRData/AssembliesPostIl2CppStrip/" + activeBuildTarget);
             // 目标地址
             string destPath = $"{dataPath}/GameMain/AOTDlls";
             // 粘贴过去

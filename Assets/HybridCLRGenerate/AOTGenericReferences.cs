@@ -390,6 +390,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Collections.Generic.IList<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// System.Collections.Generic.IList<int>
 	// System.Collections.Generic.IList<object>
+	// System.Collections.Generic.IReadOnlyDictionary<int,object>
 	// System.Collections.Generic.IReadOnlyDictionary<object,object>
 	// System.Collections.Generic.KeyValuePair<int,System.ValueTuple<int,int,UnityEngine.Rect>>
 	// System.Collections.Generic.KeyValuePair<int,object>
@@ -611,6 +612,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// Cysharp.Threading.Tasks.UniTask<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance> Cysharp.Threading.Tasks.UniTask.FromResult<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>(UnityEngine.ResourceManagement.ResourceProviders.SceneInstance)
 		// Cysharp.Threading.Tasks.UniTask<object> Cysharp.Threading.Tasks.UniTask.FromResult<object>(object)
 		// object System.Activator.CreateInstance<object>()
+		// object System.Collections.Generic.CollectionExtensions.GetValueOrDefault<int,object>(System.Collections.Generic.IReadOnlyDictionary<int,object>,int,object)
 		// object System.Collections.Generic.CollectionExtensions.GetValueOrDefault<object,object>(System.Collections.Generic.IReadOnlyDictionary<object,object>,object,object)
 		// bool System.Linq.Enumerable.Contains<object>(System.Collections.Generic.IEnumerable<object>,object)
 		// bool System.Linq.Enumerable.Contains<object>(System.Collections.Generic.IEnumerable<object>,object,System.Collections.Generic.IEqualityComparer<object>)
@@ -627,8 +629,10 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object> UnityEngine.AddressableAssets.AddressablesImpl.TrackHandle<object>(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object>)
 		// object UnityEngine.Component.GetComponent<object>()
 		// object UnityEngine.Component.GetComponentInChildren<object>(bool)
+		// object UnityEngine.Component.GetComponentInParent<object>()
 		// object UnityEngine.GameObject.AddComponent<object>()
 		// object UnityEngine.GameObject.GetComponent<object>()
+		// object UnityEngine.GameObject.GetComponentInChildren<object>()
 		// object UnityEngine.GameObject.GetComponentInChildren<object>(bool)
 		// object UnityEngine.Object.Instantiate<object>(object)
 		// UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<object> UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.Convert<object>()

@@ -1,9 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
+using UnityEngine.ResourceManagement;
+using UnityEngine.ResourceManagement.ResourceLocations;
+using UnityEngine.ResourceManagement.ResourceProviders;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 资源管理器(更新)
@@ -15,6 +20,8 @@ public class GameResourceManager
     public GameResourceManager(bool autoUpdate = false)
     {
         this.autoUpdate = autoUpdate;
+
+        Addressables.ResourceManager.InternalIdTransformFunc = LoadFunc;
     }
 
     /// <summary>
@@ -63,13 +70,25 @@ public class GameResourceManager
 
         foreach (IResourceLocator resourceLocator in resourceLocators)
         {
-            Debug.Log($"开始下载资源:{resourceLocator}");
+            Debug.Log($"开始下载资源:{resourceLocator}  {resourceLocator.LocatorId}");
             await _download(resourceLocator);
-            Debug.Log($"下载资源:{resourceLocator}完成");
+            Debug.Log($"下载资源:{resourceLocator} {resourceLocator.LocatorId} 完成");
         }
 
-        //清除一些东西
-        Addressables.CleanBundleCache();
+        //延迟一点点
+        Task.Delay(1);
+
+        SceneManager.LoadScene("empty");
+
+        var resourceManager = Addressables.ResourceManager;
+        resourceManager.Dispose();
+        Resources.UnloadUnusedAssets();
+
+        SceneManager.LoadScene("start");
+        var appGo = GameObject.Find("App");
+        GameObject.Destroy(appGo);
+
+        await Addressables.InitializeAsync();
     }
 
     private async UniTask _download(IResourceLocator resourceLocator)
@@ -77,16 +96,24 @@ public class GameResourceManager
         var size = await Addressables.GetDownloadSizeAsync(resourceLocator.Keys);
         Debug.Log($"更新:{resourceLocator}资源,总大小:{size}");
         if (size <= 0) return;
+        foreach (var resourceLocatorKey in resourceLocator.Keys)
+        {
+            Debug.Log(resourceLocatorKey.ToString());
+        }
         var downloadHandle = Addressables.DownloadDependenciesAsync(resourceLocator.Keys, Addressables.MergeMode.Union);
         await downloadHandle;
         // Debug.Log("更新完毕!");
         Addressables.Release(downloadHandle);
     }
 
-    /// <summary>
-    /// 销毁
-    /// </summary>
-    public void Destroy()
+    private static string LoadFunc(IResourceLocation location)
     {
+        // if (location.ResourceType == typeof(IAssetBundleResource) && location.InternalId.StartsWith("http"))
+        // {
+        //     string abAddress = location.InternalId.Replace(OldUrl, AddressURL);
+        //     return abAddress;
+        // }
+        Debug.Log($"资源地址:{location.InternalId}");
+        return location.InternalId;
     }
 }
