@@ -2,7 +2,7 @@
 {
     public override void OnEntry()
     {
-        role.playActoin("walk");
+        role.playActoin("move");
     }
 
     public override void tick()

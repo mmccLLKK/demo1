@@ -109,7 +109,6 @@ public class Role : MonoBehaviour
 
         //一般角色状态机都是通过配置来的.我们这里直接写死在里边
         List<(RoleStateType, StateMachineBase)> states = new List<(RoleStateType, StateMachineBase)>();
-        states.Add((RoleStateType.idle, new RoleIdleStateMachine()));
         states.Add((RoleStateType.move, new RoleMoveStateMachine()));
         // states.Add((RoleStateType.attack, new RoleAttackStateMachine()));
 
@@ -121,10 +120,10 @@ public class Role : MonoBehaviour
 
         // 因为逻辑简单...这里居然是一个笛卡尔积
         List<(RoleStateType, RoleStateType)> trans = new List<(RoleStateType, RoleStateType)>();
-        trans.Add((RoleStateType.idle, RoleStateType.move));
+        // trans.Add((RoleStateType.idle, RoleStateType.move));
         // trans.Add((RoleStateType.idle, RoleStateType.attack));
         // trans.Add((RoleStateType.move, RoleStateType.attack));
-        trans.Add((RoleStateType.move, RoleStateType.idle));
+        // trans.Add((RoleStateType.move, RoleStateType.idle));
         // trans.Add((RoleStateType.attack, RoleStateType.idle));
         // trans.Add((RoleStateType.attack, RoleStateType.move));
 
