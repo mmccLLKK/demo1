@@ -58,7 +58,7 @@ namespace UnityEditor.AddressableAssets.Build
             Directory.Delete(outputPath, true);
             BuildPlayerOptions buildOptions = new BuildPlayerOptions();
             List<string> scenes = new();
-            
+
             //进包场景
             foreach (var editorBuildSettingsScene in EditorBuildSettings.scenes)
             {

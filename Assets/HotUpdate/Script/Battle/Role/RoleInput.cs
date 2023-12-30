@@ -10,9 +10,7 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class RoleInput : MonoBehaviour
 {
-    private Role role;
-
-    private float preTime;
+    protected RoleCtrl roleCtrl;
 
     private CinemachineFreeLook cinemachineFreeLook;
 
@@ -27,7 +25,7 @@ public class RoleInput : MonoBehaviour
 
     private void Awake()
     {
-        role = GetComponent<Role>();
+        roleCtrl = GetComponent<RoleCtrl>();
 
         // 锁定鼠标光标
         Cursor.lockState = CursorLockMode.Locked;
@@ -76,15 +74,8 @@ public class RoleInput : MonoBehaviour
         // 把输入当作局部坐标处理.然后转换到时间空间
         target = main.transform.TransformVector(target);
 
-        role.SetMoveDir(target);
-        var keyJ = Input.GetKeyDown(KeyCode.J);
-        var keyK = Input.GetKeyDown(KeyCode.K);
-        // 是否正选中了一个ui
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            var allAbilities = role.abilityManager.GetAllAbilities();
-            var abilityBase = allAbilities[0];
-        }
+        //这里不处理平面投影
+        roleCtrl.targetDir = target;
 
         // 按下 Escape 键释放鼠标光标
         if (Input.GetKeyUp(KeyCode.Escape))

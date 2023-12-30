@@ -77,17 +77,10 @@ public class GameResourceManager
 
         //延迟一点点
         Task.Delay(1);
-
         SceneManager.LoadScene("empty");
-
         var resourceManager = Addressables.ResourceManager;
         resourceManager.Dispose();
         Resources.UnloadUnusedAssets();
-
-        SceneManager.LoadScene("start");
-        var appGo = GameObject.Find("App");
-        GameObject.Destroy(appGo);
-
         await Addressables.InitializeAsync();
     }
 
@@ -100,6 +93,7 @@ public class GameResourceManager
         {
             Debug.Log(resourceLocatorKey.ToString());
         }
+
         var downloadHandle = Addressables.DownloadDependenciesAsync(resourceLocator.Keys, Addressables.MergeMode.Union);
         await downloadHandle;
         // Debug.Log("更新完毕!");

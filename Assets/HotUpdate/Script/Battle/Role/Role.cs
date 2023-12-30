@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Role : MonoBehaviour
@@ -8,7 +7,15 @@ public class Role : MonoBehaviour
 
     public RoleFSM roleFsm;
 
-    public RoleAbilityManager abilityManager;
+    public RoleAbility roleAbility;
+
+    public RoleCombat roleCombat;
+
+    public RoleCtrl roleCtrl;
+
+    public RoleAttr roleAttr;
+
+    public RoleModifier roleModifier;
 
     /// <summary>
     /// 快速开发的时候暂时使用已有的 KCC 代替
@@ -29,16 +36,6 @@ public class Role : MonoBehaviour
     public bool canRotate = true;
 
     #endregion
-
-    /// <summary>
-    /// 期望的移动方向(也可以是目标点)
-    /// </summary>
-    public Vector3 moveDir = Vector3.zero;
-
-    /// <summary>
-    /// 当前的速度
-    /// </summary>
-    public Vector3 curVec = Vector3.zero;
 
     #region 角色属性
 
@@ -110,7 +107,6 @@ public class Role : MonoBehaviour
         //一般角色状态机都是通过配置来的.我们这里直接写死在里边
         List<(RoleStateType, StateMachineBase)> states = new List<(RoleStateType, StateMachineBase)>();
         states.Add((RoleStateType.move, new RoleMoveStateMachine()));
-        // states.Add((RoleStateType.attack, new RoleAttackStateMachine()));
 
         //初始化赋值Role
         foreach (var valueTuple in states)
@@ -120,20 +116,11 @@ public class Role : MonoBehaviour
 
         // 因为逻辑简单...这里居然是一个笛卡尔积
         List<(RoleStateType, RoleStateType)> trans = new List<(RoleStateType, RoleStateType)>();
-        // trans.Add((RoleStateType.idle, RoleStateType.move));
-        // trans.Add((RoleStateType.idle, RoleStateType.attack));
-        // trans.Add((RoleStateType.move, RoleStateType.attack));
-        // trans.Add((RoleStateType.move, RoleStateType.idle));
-        // trans.Add((RoleStateType.attack, RoleStateType.idle));
-        // trans.Add((RoleStateType.attack, RoleStateType.move));
 
         //设置状态机数据
         roleFsm.SetStatesInfo(states, trans);
 
-        roleFsm.SetState(RoleStateType.idle, true);
-
-        //技能管理器
-        abilityManager = this.gameObject.GetComponent<RoleAbilityManager>();
+        roleFsm.SetState(RoleStateType.move, true);
 
         //动画管理器
         roleAnim = this.GetComponent<RoleAnim>();
@@ -159,47 +146,36 @@ public class Role : MonoBehaviour
         //播放音效
     }
 
-    public void SetMoveDir(Vector3 dir)
-    {
-        //方向修正,先这类游戏输入方向一定是在世界方向上方的投影
-        dir = Vector3.ProjectOnPlane(dir, Vector3.up);
-        moveDir = dir;
-    }
-
-    /// <summary>
-    /// 计算当前速度
-    /// </summary>
-    /// <returns></returns>
-    protected Vector3 CalCurSpeed()
-    {
-        //这里的计算方式应该根据当前的游戏类型考虑
-        Vector3 rst = Vector3.zero;
-        if (canMove)
-        {
-            rst += moveDir * moveSpeed;
-        }
-
-        // rst += Vector3.up * 19.8f;
-        return rst;
-    }
 
     /// <summary>
     /// 移动
     /// </summary>
     protected void Movement()
     {
-        var calCurSpeed = CalCurSpeed();
+        var targetDir = roleCtrl.targetDir;
+        var ctrlStatus = roleCtrl.curRoleCtrlStatus;
+        targetDir = Vector3.ProjectOnPlane(targetDir, Vector3.up);
+        targetDir = targetDir * moveSpeed;
+
 
         // 转向
-        if (canRotate)
+        if (ctrlStatus.canRotate)
         {
-            var dir = calCurSpeed.normalized;
+            var dir = targetDir.normalized;
             var projectOnPlane = Vector3.ProjectOnPlane(dir, Vector3.up);
             this.transform.forward = Vector3.Slerp(this.transform.forward, projectOnPlane, 0.5f);
         }
 
+        // 如果不能移动,那么需要把
+        if (!ctrlStatus.canMove)
+        {
+            targetDir = Vector3.zero;
+        }
+        // 一些额外的移动处理
+
+
         //直接修改位置的做法(如果后续有需求.可以处理这部分的东西)
-        kcc.Move(calCurSpeed * Time.deltaTime);
+        kcc.Move(targetDir * Time.deltaTime);
     }
 
     protected void Jump()
@@ -207,32 +183,8 @@ public class Role : MonoBehaviour
         //没有jump动画.还是别跳了
     }
 
-    public void ChangeState()
-    {
-        if (roleFsm.IsInState(RoleStateType.attack))
-        {
-            return;
-        }
-
-        var dir = moveDir;
-        // 切换角色状态 (如果期望是要移动,但是又不处于移动状态.)
-        if (dir.magnitude > 0 && !roleFsm.IsInState(RoleStateType.move))
-        {
-            roleFsm.SetState(RoleStateType.move);
-        }
-
-        // 同理切换到站立状态
-        if (dir.magnitude == 0 && !roleFsm.IsInState(RoleStateType.idle))
-        {
-            roleFsm.SetState(RoleStateType.idle);
-        }
-    }
-
     public void Update()
     {
-        //改变默认状态
-        ChangeState();
-
         //画出debug信息
         DrawDebug();
     }
@@ -259,8 +211,6 @@ public class Role : MonoBehaviour
         Jump();
         //移动
         Movement();
-
-        curVec = kcc.velocity;
     }
 
     /// <summary>

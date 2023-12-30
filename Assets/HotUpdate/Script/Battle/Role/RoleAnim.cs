@@ -1,26 +1,9 @@
 using UnityEngine;
 
+
 /// <summary>
-/// 动画信息
+/// 角色动画
 /// </summary>
-public struct AnimInfo
-{
-    /// <summary>
-    /// 动画名
-    /// </summary>
-    public string animName;
-
-    /// <summary>
-    /// 优先级
-    /// </summary>
-    public int priority;
-
-    /// <summary>
-    /// 动画持续时间(这个并不重要,但是最好还是记录.表现层有用)
-    /// </summary>
-    public float duringTime;
-}
-
 public class RoleAnim : MonoBehaviour
 {
     public Animator animator;

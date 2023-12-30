@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class RoleAbilityManager : MonoBehaviour
+public class RoleAbility : MonoBehaviour
 {
     /// <summary>
     /// 持有的能力
@@ -14,19 +14,11 @@ public class RoleAbilityManager : MonoBehaviour
     /// </summary>
     protected List<AbilityBase> castingAbility = new();
 
-    private Role _role;
+    protected Role role;
 
-    protected Role role
+    public void Init()
     {
-        get
-        {
-            if (_role)
-            {
-                _role = this.gameObject.GetComponent<Role>();
-            }
-
-            return _role;
-        }
+        role = this.gameObject.GetComponent<Role>();
     }
 
     /// <summary>

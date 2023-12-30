@@ -26,7 +26,7 @@ public class PatrolStateMachine : AIStateMachineBase
         }
         else
         {
-            role.SetMoveDir(dis.normalized);
+            role.roleCtrl.targetDir = dis.normalized;
         }
     }
 

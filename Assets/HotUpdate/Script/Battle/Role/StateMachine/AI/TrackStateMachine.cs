@@ -17,7 +17,7 @@ public class TrackStateMachine : AIStateMachineBase
         }
 
         var dir = enemy.transform.position - role.transform.position;
-        role.SetMoveDir(dir);
+        role.roleCtrl.targetDir = dir;
     }
 
     public override void OnLeave()
