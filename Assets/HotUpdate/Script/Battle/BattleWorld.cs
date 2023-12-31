@@ -51,7 +51,7 @@ public class BattleWorld : MonoBehaviour
     /// 站场内添加角色
     /// </summary>
     /// <returns></returns>
-    public async UniTask<(int, Role)> CreateRole(RoleData roleData)
+    public async Task<(int, Role)> CreateRole(RoleData roleData)
     {
         var confManager = ConfManager.inst;
 
@@ -59,7 +59,8 @@ public class BattleWorld : MonoBehaviour
         //TODO 接入真实的属性系统
         var roleId = roleData.roleId;
         var roleConfig = confManager.roleConfigs.getRoleConfigById(roleId);
-        RoleTemplateConfig roleTemplateConfigById = confManager.roleTemplateConfigs.getRoleTemplateConfigById(roleConfig.roleTemplateId);
+        RoleTemplateConfig roleTemplateConfigById =
+            confManager.roleTemplateConfigs.getRoleTemplateConfigById(roleConfig.roleTemplateId);
         GameObject roleGameObject = await Addressables.InstantiateAsync(roleTemplateConfigById.path);
         await Task.Delay(1);
         Role role = roleGameObject.GetComponent<Role>();

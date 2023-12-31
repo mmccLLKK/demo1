@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class StateMachineManager<T> : MonoBehaviour
@@ -47,26 +48,33 @@ public abstract class StateMachineManager<T> : MonoBehaviour
     /// </summary>
     public void SetState(T stateType, bool isForce = false)
     {
-        //不是force才需要走这些判断
+        if (!this.statesDic.ContainsKey(stateType))
+        {
+            throw new Exception("未找到对应的状态");
+        }
+
+        //如果是强制的.那么不需要考虑转移规则
         if (!isForce)
         {
+            //不是force才需要走这些判断
             if (!this.transferDic.ContainsKey(this.curStateType))
             {
-                Debug.Log("未找到对应的状态:" + stateType);
+                Debug.LogError("未找到对应的状态:" + stateType);
                 return;
             }
 
             if (!this.transferDic[this.curStateType].Contains(stateType))
             {
-                Debug.Log($"状态:{this.curStateType}不能转移到状态:{stateType}");
+                Debug.LogError($"状态:{this.curStateType}不能转移到状态:{stateType}");
+                return;
             }
         }
 
-        var curState = this.statesDic[this.curStateType];
+        var curState = this.statesDic.GetValueOrDefault(this.curStateType, null);
         var nexState = this.statesDic[stateType];
         curState?.OnLeave();
         nexState?.OnEntry();
-        
+
         //改变状态
         this.curStateType = stateType;
     }
@@ -82,7 +90,7 @@ public abstract class StateMachineManager<T> : MonoBehaviour
     public void Update()
     {
         //状态Tick
-        var stateMachineBase = this.statesDic[this.curStateType];
+        var stateMachineBase = this.statesDic.GetValueOrDefault(this.curStateType, null);
         stateMachineBase?.tick();
     }
 }

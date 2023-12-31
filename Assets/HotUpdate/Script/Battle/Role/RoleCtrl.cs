@@ -21,6 +21,12 @@ public class RoleCtrl : MonoBehaviour
     /// </summary>
     protected List<RoleCtrlStatus> roleCtrlStatusList = new();
 
+    public void Init()
+    {
+        // 初始化
+        curRoleCtrlStatus = RefreshRoleCtrlStatus();
+    }
+
     /// <summary>
     /// 状态刷新
     /// </summary>

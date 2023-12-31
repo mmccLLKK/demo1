@@ -1,4 +1,6 @@
-﻿namespace Script.StaticConfig
+﻿using Newtonsoft.Json;
+
+namespace Script.StaticConfig
 {
     public class StaticConfig
     {
@@ -12,21 +14,25 @@
             var attrConfigsTables = confManager.attrConfigs.tables;
             var roleTemplateConfigs = confManager.roleTemplateConfigs.tables;
             var abilityConfigsTables = confManager.abilityConfigs.tables;
-            //拿斧头的小萝莉初始化 (普通)
+            //大剑的骑士
             roleConfigsTables.Add(new RoleConfig()
-                { id = "axceler", roleAttrId = "axceler", roleTemplateId = "axceler" });
-            attrConfigsTables.Add(new RoleAttrConfig() { id = "axceler", level = 1, hp = 100, atk = 10 });
+                { id = "GreatSword", roleAttrId = "GreatSword", roleTemplateId = "GreatSword" });
+            attrConfigsTables.Add(new RoleAttrConfig() { id = "GreatSword", level = 1, hp = 100, atk = 10 });
             roleTemplateConfigs.Add(new RoleTemplateConfig()
-                { id = "axceler", name = "斧头小萝莉", path = "Assets/GameMain/Prefabs/Characters/Role3/Role3.prefab" });
+                { id = "GreatSword", name = "大剑", path = "Assets/GameMain/Prefabs/Characters/Role1/Role1.prefab" });
             //TODO 技能数据的配置
             abilityConfigsTables.Add(new AbilityConfig
             {
-                id = "axceler_normal_attack",
-                templateName = "axceler_normal_attack",
-                confStr = "{}" // TODO  后续使用编辑器接入真配置, 这里目前使用的假配置
+                id = "GreatSword_normal_attack_1",
+                templateName = "normal_attack",
+                confStr = JsonConvert.SerializeObject(new AbilityNormalAttackConfig
+                {
+                    duringTime = 1f,
+                    exitTime = 0.8f,
+                    animName = "attack_1",
+                    moveSpeed = 0.2f,
+                })
             });
-            //拿剑的骑士
-
             //关卡信息
             var battleLevelConfigs = confManager.battleLevelConfigs.tables;
             battleLevelConfigs.Add(new BattleLevelConfig

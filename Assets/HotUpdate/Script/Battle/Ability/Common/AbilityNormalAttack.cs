@@ -41,4 +41,9 @@ public class AbilityNormalAttack : AbilityBase
         this.timeProcess = 0;
         this.timeDuring = 0;
     }
+
+    public override void Tick(float deltaTime)
+    {
+        base.Tick(deltaTime);
+    }
 }

@@ -31,9 +31,9 @@ public class PlayerSystem : Singleton<PlayerSystem>
             {
                 new RoleData
                 {
-                    roleId = "axceler",
+                    roleId = "GreatSword",
                     lv = 1,
-                    abilityIds = new() { "axceler_normal_attack" }
+                    abilityIds = new() { "GreatSword_normal_attack_1" }
                 }
             }
         };

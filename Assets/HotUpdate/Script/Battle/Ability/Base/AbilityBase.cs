@@ -23,6 +23,11 @@ public abstract class AbilityBase
     /// 最大持续时间
     /// </summary>
     public float timeMax = 0;
+    
+    /// <summary>
+    /// 技能timeline
+    /// </summary>
+    public AbilityTimeline abilityTimeline;
 
     /// <summary>
     /// 能力状态

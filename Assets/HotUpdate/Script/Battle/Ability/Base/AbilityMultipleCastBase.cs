@@ -4,4 +4,5 @@
 /// </summary>
 public abstract class AbilityMultipleCastBase : AbilityBase
 {
+    
 }

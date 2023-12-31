@@ -25,15 +25,9 @@ public class Role : MonoBehaviour
     #region 角色逻辑状态动态数据
 
     /// <summary>
-    /// 是否能移动
-    /// 状态标志位 (多数使用GAS这套的逻辑都会有这种标志位)
+    /// 额外速度
     /// </summary>
-    public bool canMove = true;
-
-    /// <summary>
-    /// 是否能转身
-    /// </summary>
-    public bool canRotate = true;
+    public Vector3 extraVec;
 
     #endregion
 
@@ -128,24 +122,14 @@ public class Role : MonoBehaviour
         {
             roleAnim = this.gameObject.AddComponent<RoleAnim>();
         }
+
+        roleCtrl.Init();
     }
 
     private void Awake()
     {
         Init();
     }
-
-    //walk 特效
-    public void playActoin(string anim)
-    {
-        //播放动效
-        this.roleAnim?.Play(anim, 0.1f);
-
-        //播放特效
-
-        //播放音效
-    }
-
 
     /// <summary>
     /// 移动
@@ -166,13 +150,12 @@ public class Role : MonoBehaviour
             this.transform.forward = Vector3.Slerp(this.transform.forward, projectOnPlane, 0.5f);
         }
 
-        // 如果不能移动,那么需要把
+        // 如果不能移动,那么需要把移速降低
         if (!ctrlStatus.canMove)
         {
             targetDir = Vector3.zero;
         }
         // 一些额外的移动处理
-
 
         //直接修改位置的做法(如果后续有需求.可以处理这部分的东西)
         kcc.Move(targetDir * Time.deltaTime);

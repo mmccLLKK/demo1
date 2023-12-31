@@ -37,6 +37,7 @@ public struct RoleCtrlStatus
     {
         left.canMove &= right.canMove;
         left.canRotate &= right.canRotate;
+        left.canAttack &= right.canAttack;
         return left;
     }
 }
@@ -99,15 +100,20 @@ public struct RoleAttrValue
 /// <summary>
 /// 动画信息
 /// </summary>
-public struct AnimInfo
+public class AnimInfo
 {
+    /// <summary>
+    /// id 移除的时候需要使用的
+    /// </summary>
+    public int id;
+
     /// <summary>
     /// 动画名
     /// </summary>
     public string animName;
 
     /// <summary>
-    /// 优先级
+    /// 优先级 (需要配置,暂时不生效.目前采用动画列表最末尾的那个动画作为当前动画)
     /// </summary>
     public int priority;
 
@@ -115,6 +121,11 @@ public struct AnimInfo
     /// 动画持续时间(这个并不重要,但是最好还是记录.表现层有用)
     /// </summary>
     public float duringTime;
+    
+    /// <summary>
+    /// 开始时间
+    /// </summary>
+    public float startTime;
 }
 
 /// <summary>

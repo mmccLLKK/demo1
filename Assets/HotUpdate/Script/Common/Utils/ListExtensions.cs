@@ -8,7 +8,7 @@ public static class ListExtensions
     {
         if (list.Count == 0)
         {
-            throw new InvalidOperationException("列表为空");
+            return default;
         }
 
         int lastIndex = list.Count - 1;
@@ -23,12 +23,38 @@ public static class ListExtensions
     {
         if (list.Count == 0)
         {
-            throw new InvalidOperationException("列表为空");
+            return default;
         }
 
         T firstItem = list[0];
         list.RemoveAt(0);
 
         return firstItem;
+    }
+
+    /// <summary>
+    /// 列表最前边的元素
+    /// </summary>
+    public static T Front<T>(this List<T> list)
+    {
+        if (list.Count == 0)
+        {
+            return default;
+        }
+
+        return list[0];
+    }
+
+    /// <summary>
+    /// 列表的最后一个元素
+    /// </summary>
+    public static T Back<T>(this List<T> list)
+    {
+        if (list.Count == 0)
+        {
+            return default;
+        }
+
+        return list[list.Count - 1];
     }
 }
